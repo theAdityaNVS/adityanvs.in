@@ -1,8 +1,49 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ArrowRight, Github, Linkedin, Twitter, ChevronDown, Sparkles, MapPin, Mail } from 'lucide-react';
 import { SOCIALS, RESUME_DATA } from '../constants';
+import MagneticWrapper from './ui/MagneticWrapper';
+import TiltCard from './ui/TiltCard';
 
 const Hero: React.FC = () => {
+  const [text, setText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [loopNum, setLoopNum] = useState(0);
+  const [delta, setDelta] = useState(300 - Math.random() * 100);
+  const period = 2000;
+  
+  const toRotate = [ "Full Stack Developer", "MERN Specialist", "UI/UX Engineer", "AI Integrator" ];
+
+  useEffect(() => {
+    let ticker = setInterval(() => {
+      tick();
+    }, delta);
+
+    return () => { clearInterval(ticker) };
+  }, [text, delta]);
+
+  const tick = () => {
+    let i = loopNum % toRotate.length;
+    let fullText = toRotate[i];
+    let updatedText = isDeleting ? fullText.substring(0, text.length - 1) : fullText.substring(0, text.length + 1);
+
+    setText(updatedText);
+
+    if (isDeleting) {
+      setDelta(prevDelta => prevDelta / 2);
+    }
+
+    if (!isDeleting && updatedText === fullText) {
+      setIsDeleting(true);
+      setDelta(period);
+    } else if (isDeleting && updatedText === '') {
+      setIsDeleting(false);
+      setLoopNum(loopNum + 1);
+      setDelta(100);
+    } else {
+      if(!isDeleting && delta > 150) setDelta(100);
+    }
+  };
+
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-20 px-6">
       <div className="container mx-auto max-w-7xl">
@@ -21,93 +62,112 @@ const Hero: React.FC = () => {
             
             <h1 className="text-5xl md:text-7xl font-display font-bold text-white mb-6 leading-[1.1] animate-[fadeIn_1.2s_ease-out] tracking-tight">
               Hello, I'm <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-accent">Aditya.</span>
+              {/* Glowing Name Effect */}
+              <span className="relative inline-block mt-2">
+                 <span className="absolute -inset-1 bg-gradient-to-r from-primary via-secondary to-accent opacity-30 blur-xl"></span>
+                 <span className="relative text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-accent animate-shine bg-[length:200%_auto]">Aditya.</span>
+              </span>
             </h1>
+
+            {/* Changing Text Effect */}
+            <div className="h-[40px] mb-8 animate-[fadeIn_1.4s_ease-out]">
+                <span className="text-xl md:text-2xl text-slate-300 font-light">
+                    I am a <span className="text-white font-semibold border-r-2 border-primary pr-1 animate-pulse">{text}</span>
+                </span>
+            </div>
             
             <p className="text-xl text-slate-300/80 mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed animate-[fadeIn_1.4s_ease-out] font-light">
               {RESUME_DATA.bio}
             </p>
             
             <div className="flex flex-col sm:flex-row items-center lg:justify-start justify-center gap-4 animate-[fadeIn_1.6s_ease-out]">
-              <a href="#projects" className="px-8 py-4 bg-white text-darker rounded-full font-bold hover:bg-slate-200 transition-all flex items-center gap-2 group shadow-[0_0_30px_rgba(255,255,255,0.2)] hover:shadow-[0_0_50px_rgba(255,255,255,0.4)] transform hover:-translate-y-1 w-full sm:w-auto justify-center">
-                View Portfolio
-                <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-              </a>
-              <a href="#contact" className="px-8 py-4 glass-panel rounded-full font-semibold text-white hover:bg-white/10 transition-all transform hover:-translate-y-1 w-full sm:w-auto justify-center flex">
-                Let's Talk
-              </a>
+              <MagneticWrapper strength={60}>
+                <a href="#projects" className="px-8 py-4 bg-white text-darker rounded-full font-bold hover:bg-slate-200 transition-all flex items-center gap-2 group shadow-[0_0_30px_rgba(255,255,255,0.2)] hover:shadow-[0_0_50px_rgba(255,255,255,0.4)] w-full sm:w-auto justify-center">
+                    View Portfolio
+                    <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                </a>
+              </MagneticWrapper>
+              
+              <MagneticWrapper strength={60}>
+                <a href="#contact" className="px-8 py-4 glass-panel rounded-full font-semibold text-white hover:bg-white/10 transition-all w-full sm:w-auto justify-center flex">
+                    Let's Talk
+                </a>
+              </MagneticWrapper>
             </div>
 
             <div className="mt-12 flex items-center lg:justify-start justify-center gap-6 animate-[fadeIn_1.8s_ease-out]">
               {SOCIALS.map((social) => (
-                <a 
-                    key={social.platform} 
-                    href={social.url} 
-                    target="_blank" 
-                    rel="noreferrer"
-                    className="p-3 rounded-full bg-white/5 border border-white/5 text-slate-400 hover:text-white hover:bg-white/10 hover:border-white/20 hover:scale-110 transition-all duration-300 backdrop-blur-sm"
-                >
-                    {social.icon === 'github' && <Github size={22} />}
-                    {social.icon === 'linkedin' && <Linkedin size={22} />}
-                    {social.icon === 'twitter' && <Twitter size={22} />}
-                </a>
+                <MagneticWrapper key={social.platform} strength={40}>
+                    <a 
+                        href={social.url} 
+                        target="_blank" 
+                        rel="noreferrer"
+                        className="p-3 block rounded-full bg-white/5 border border-white/5 text-slate-400 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all duration-300 backdrop-blur-sm"
+                    >
+                        {social.icon === 'github' && <Github size={22} />}
+                        {social.icon === 'linkedin' && <Linkedin size={22} />}
+                        {social.icon === 'twitter' && <Twitter size={22} />}
+                    </a>
+                </MagneticWrapper>
               ))}
             </div>
           </div>
 
           {/* Right Column: Glass Profile Card (Mobile Dev Aesthetic) */}
           <div className="flex-1 w-full max-w-md lg:max-w-full animate-[float_6s_ease-in-out_infinite] z-10 hidden md:block">
-            <div className="relative">
-                {/* Background Blobs for Card */}
-                <div className="absolute -inset-1 bg-gradient-to-r from-primary to-secondary rounded-[2.5rem] blur opacity-30"></div>
-                
-                {/* The Card */}
-                <div className="glass-panel rounded-[2.5rem] p-8 border border-white/10 relative overflow-hidden">
-                    {/* Header */}
-                    <div className="flex items-center justify-between mb-8">
-                        <div className="h-12 w-12 rounded-2xl bg-white/10 flex items-center justify-center backdrop-blur-md">
-                            <Sparkles className="text-yellow-400" size={24} />
+            <TiltCard>
+                <div className="relative">
+                    {/* Background Blobs for Card */}
+                    <div className="absolute -inset-1 bg-gradient-to-r from-primary to-secondary rounded-[2.5rem] blur opacity-30"></div>
+                    
+                    {/* The Card */}
+                    <div className="glass-panel rounded-[2.5rem] p-8 border border-white/10 relative overflow-hidden h-full">
+                        {/* Header */}
+                        <div className="flex items-center justify-between mb-8">
+                            <div className="h-12 w-12 rounded-2xl bg-white/10 flex items-center justify-center backdrop-blur-md">
+                                <Sparkles className="text-yellow-400" size={24} />
+                            </div>
+                            <div className="text-right">
+                                <p className="text-xs text-slate-400 uppercase tracking-wider font-bold">Experience</p>
+                                <p className="text-xl font-bold text-white">4+ Years</p>
+                            </div>
                         </div>
-                        <div className="text-right">
-                            <p className="text-xs text-slate-400 uppercase tracking-wider font-bold">Experience</p>
-                            <p className="text-xl font-bold text-white">4+ Years</p>
-                        </div>
-                    </div>
 
-                    {/* Content */}
-                    <div className="space-y-6">
-                        <div className="p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
-                            <div className="flex items-center gap-4">
-                                <div className="p-2 rounded-full bg-blue-500/20 text-blue-400">
-                                    <MapPin size={20} />
+                        {/* Content */}
+                        <div className="space-y-6">
+                            <div className="p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
+                                <div className="flex items-center gap-4">
+                                    <div className="p-2 rounded-full bg-blue-500/20 text-blue-400">
+                                        <MapPin size={20} />
+                                    </div>
+                                    <div>
+                                        <p className="text-xs text-slate-400">Based in</p>
+                                        <p className="text-sm font-semibold text-white">{RESUME_DATA.location}</p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <p className="text-xs text-slate-400">Based in</p>
-                                    <p className="text-sm font-semibold text-white">{RESUME_DATA.location}</p>
+                            </div>
+
+                            <div className="p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
+                                <div className="flex items-center gap-4">
+                                    <div className="p-2 rounded-full bg-purple-500/20 text-purple-400">
+                                        <Mail size={20} />
+                                    </div>
+                                    <div>
+                                        <p className="text-xs text-slate-400">Email</p>
+                                        <p className="text-sm font-semibold text-white">{RESUME_DATA.email}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
-                            <div className="flex items-center gap-4">
-                                <div className="p-2 rounded-full bg-purple-500/20 text-purple-400">
-                                    <Mail size={20} />
-                                </div>
-                                <div>
-                                    <p className="text-xs text-slate-400">Email</p>
-                                    <p className="text-sm font-semibold text-white">{RESUME_DATA.email}</p>
-                                </div>
-                            </div>
+                        {/* Bottom Decor */}
+                        <div className="mt-8 pt-6 border-t border-white/10 flex justify-between items-center text-xs text-slate-500 font-mono">
+                            <span>ID: DEV-2025</span>
+                            <span>STATUS: ACTIVE</span>
                         </div>
-                    </div>
-
-                    {/* Bottom Decor */}
-                    <div className="mt-8 pt-6 border-t border-white/10 flex justify-between items-center text-xs text-slate-500 font-mono">
-                        <span>ID: DEV-2025</span>
-                        <span>STATUS: ACTIVE</span>
                     </div>
                 </div>
-            </div>
+            </TiltCard>
           </div>
 
         </div>

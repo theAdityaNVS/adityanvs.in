@@ -30,15 +30,14 @@ const App: React.FC = () => {
         <ScrollReveal>
           <Projects />
         </ScrollReveal>
-
-        <ScrollReveal>
-          <AIAssistant />
-        </ScrollReveal>
         
         <ScrollReveal>
           <Contact />
         </ScrollReveal>
       </main>
+
+      {/* Floating AI Chatbot - placed outside main to sit on top of everything */}
+      <AIAssistant />
     </div>
   );
 };

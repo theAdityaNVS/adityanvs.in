@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Terminal } from 'lucide-react';
+import MagneticWrapper from './ui/MagneticWrapper';
 
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -7,7 +8,6 @@ const Navbar: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Trigger transform earlier for smoother effect
       setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll);
@@ -50,36 +50,38 @@ const Navbar: React.FC = () => {
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-1">
           {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className={`
-                px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 relative overflow-hidden group
-                ${isScrolled ? 'text-slate-300 hover:text-white hover:bg-white/10' : 'text-slate-300 hover:text-white'}
-              `}
-            >
-              <span className="relative z-10">{link.name}</span>
-              {/* Subtle hover shine for links */}
-              {!isScrolled && (
-                 <span className="absolute bottom-0 left-0 w-full h-0.5 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-              )}
-            </a>
+            <MagneticWrapper key={link.name}>
+              <a
+                href={link.href}
+                className={`
+                  px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 relative overflow-hidden group block
+                  ${isScrolled ? 'text-slate-300 hover:text-white hover:bg-white/10' : 'text-slate-300 hover:text-white'}
+                `}
+              >
+                <span className="relative z-10">{link.name}</span>
+                {/* Subtle hover shine for links */}
+                {!isScrolled && (
+                   <span className="absolute bottom-0 left-0 w-full h-0.5 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+                )}
+              </a>
+            </MagneticWrapper>
           ))}
           
           <div className={`w-px h-6 mx-2 ${isScrolled ? 'bg-white/10' : 'bg-white/20'}`}></div>
 
-          <button
-            onClick={() => document.getElementById('ai-assistant')?.scrollIntoView({ behavior: 'smooth' })}
-            className={`
-              flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300
-              ${isScrolled 
-                ? 'bg-primary text-white hover:bg-primary/90 shadow-[0_0_15px_rgba(99,102,241,0.4)]' 
-                : 'bg-white/10 text-white hover:bg-white/20 border border-white/10 backdrop-blur-sm'
-              }
-            `}
-          >
-            Ask AI
-          </button>
+          {/* Note: The old 'Ask AI' button is removed from here since it's now a floating button */}
+          <MagneticWrapper>
+            <a href="https://github.com/theAdityaNVS" target="_blank" rel="noopener noreferrer" className={`
+                flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300
+                ${isScrolled 
+                  ? 'bg-primary text-white hover:bg-primary/90 shadow-[0_0_15px_rgba(99,102,241,0.4)]' 
+                  : 'bg-white/10 text-white hover:bg-white/20 border border-white/10 backdrop-blur-sm'
+                }
+              `}
+            >
+              GitHub
+            </a>
+          </MagneticWrapper>
         </div>
 
         {/* Mobile Menu Button */}
@@ -108,15 +110,6 @@ const Navbar: React.FC = () => {
               {link.name}
             </a>
           ))}
-          <button
-             onClick={() => {
-                setIsMobileMenuOpen(false);
-                document.getElementById('ai-assistant')?.scrollIntoView({ behavior: 'smooth' });
-             }}
-             className={`px-8 py-3 bg-gradient-to-r from-primary to-secondary rounded-full text-white font-bold text-lg shadow-lg shadow-primary/25 transition-all duration-300 delay-300 transform ${isMobileMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
-          >
-            Talk to AI
-          </button>
       </div>
     </nav>
   );

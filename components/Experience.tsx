@@ -1,13 +1,17 @@
 import React from 'react';
 import { Briefcase, Building2, Calendar } from 'lucide-react';
 import { EXPERIENCE } from '../constants';
+import DecryptedText from './ui/DecryptedText';
+import TiltCard from './ui/TiltCard';
 
 const Experience: React.FC = () => {
   return (
     <section id="experience" className="py-32 relative">
       <div className="container mx-auto px-6">
         <div className="mb-20">
-          <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-6">Work Experience</h2>
+          <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-6">
+            <DecryptedText text="Work Experience" />
+          </h2>
           <div className="h-1 w-20 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
         </div>
 
@@ -34,30 +38,32 @@ const Experience: React.FC = () => {
 
                 {/* Content Card */}
                 <div className="w-full md:w-1/2 pl-20 md:pl-0 md:px-8">
-                  <div className="glass-panel p-6 rounded-3xl relative group hover:bg-white/10 transition-all duration-300 border-l-4 border-l-primary/50 md:border-l-0 md:border-t-4 md:border-t-primary/50">
-                    
-                    {/* Date Badge (Mobile) */}
-                    <div className="md:hidden inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/5 text-xs text-slate-300 mb-4">
-                        <Calendar size={12} className="text-primary" />
-                        {job.period}
-                    </div>
+                  <TiltCard>
+                    <div className="glass-panel p-6 rounded-3xl relative group hover:bg-white/10 transition-all duration-300 border-l-4 border-l-primary/50 md:border-l-0 md:border-t-4 md:border-t-primary/50 h-full">
+                      
+                      {/* Date Badge (Mobile) */}
+                      <div className="md:hidden inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/5 text-xs text-slate-300 mb-4">
+                          <Calendar size={12} className="text-primary" />
+                          {job.period}
+                      </div>
 
-                    <div className="flex items-start justify-between mb-4">
-                        <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center border border-white/10 text-white shadow-inner">
-                                <Building2 size={20} />
-                            </div>
-                            <div>
-                                <h3 className="text-xl font-bold text-white leading-tight">{job.role}</h3>
-                                <p className="text-primary font-medium text-sm">{job.company}</p>
-                            </div>
-                        </div>
+                      <div className="flex items-start justify-between mb-4">
+                          <div className="flex items-center gap-3">
+                              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center border border-white/10 text-white shadow-inner">
+                                  <Building2 size={20} />
+                              </div>
+                              <div>
+                                  <h3 className="text-xl font-bold text-white leading-tight">{job.role}</h3>
+                                  <p className="text-primary font-medium text-sm">{job.company}</p>
+                              </div>
+                          </div>
+                      </div>
+                      
+                      <p className="text-slate-400 text-sm leading-relaxed">
+                        {job.description}
+                      </p>
                     </div>
-                    
-                    <p className="text-slate-400 text-sm leading-relaxed">
-                      {job.description}
-                    </p>
-                  </div>
+                  </TiltCard>
                 </div>
               </div>
             ))}

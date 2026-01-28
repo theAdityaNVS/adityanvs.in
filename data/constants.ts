@@ -27,15 +27,15 @@ export const SKILLS: Skill[] = [
   { name: "Git / CI/CD", level: 90, category: "tools", icon: "git" },
 ];
 
-// Using reliable Unsplash Photo IDs
+// Using reliable, updated Unsplash Photo IDs
 export const PROJECTS: Project[] = [
   {
     id: "1",
     title: "Nexus - API Marketplace",
     description: "A full-stack platform for developers to sell and monetize APIs. Built with Next.js 14, implementing Stripe Connect for payouts and Kong for API gateway management. Features real-time usage analytics.",
     tags: ["Next.js", "PostgreSQL", "Stripe", "Kong API", "Tailwind"],
-    // Image: Abstract Network/Data
-    imageUrl: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800&auto=format&fit=crop", 
+    // Image: Abstract Network/Chip/Circuit
+    imageUrl: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800", 
     featured: true,
     githubUrl: "https://github.com/",
     demoUrl: "#"
@@ -45,8 +45,8 @@ export const PROJECTS: Project[] = [
     title: "StreamVibe - Live Streaming",
     description: "Interactive video streaming application leveraging WebRTC for sub-second latency. Supports RTMP ingestion via Node.js Media Server and HLS playback. Includes chat functionality powered by WebSocket.",
     tags: ["React", "Node.js", "WebRTC", "FFmpeg", "Socket.io"],
-    // Image: Recording Studio/Microphone/High Tech
-    imageUrl: "https://images.unsplash.com/photo-1478737270239-2f02b77ac6d5?q=80&w=800&auto=format&fit=crop",
+    // Image: Cyberpunk / Neon Studio / Tech Vibe
+    imageUrl: "https://images.unsplash.com/photo-1593508512255-86ab42a8e620?auto=format&fit=crop&q=80&w=800",
     featured: true,
     githubUrl: "https://github.com/",
     demoUrl: "#"
@@ -56,8 +56,8 @@ export const PROJECTS: Project[] = [
     title: "FinLedger - Distributed Transaction System",
     description: "High-throughput distributed ledger system designed for financial reconciliation. Implements Kafka for event streaming and optimistic locking for concurrency control. Handles 5000+ transactions/sec.",
     tags: ["Java", "Spring Boot", "Kafka", "PostgreSQL", "Docker"],
-    // Image: Financial Data/Charts/Dashboard
-    imageUrl: "https://images.unsplash.com/photo-1611974765270-ca12586343bb?q=80&w=800&auto=format&fit=crop",
+    // Image: Financial Data/Charts/Dashboard Dark Theme
+    imageUrl: "https://images.unsplash.com/photo-1642543492481-44e81e3914a7?auto=format&fit=crop&q=80&w=800",
     featured: false,
     githubUrl: "https://github.com/"
   },

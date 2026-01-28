@@ -10,7 +10,8 @@ import ScrollReveal from './components/ui/ScrollReveal';
 
 const App: React.FC = () => {
   return (
-    <div className="min-h-screen bg-darker text-slate-200 selection:bg-primary selection:text-white">
+    // Removed bg-darker so the index.html cyber-grid shows through
+    <div className="min-h-screen text-slate-200 selection:bg-primary selection:text-white">
       <Navbar />
       
       <main>

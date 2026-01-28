@@ -32,6 +32,7 @@
               'float': 'float 6s ease-in-out infinite',
               'shine': 'shine 8s linear infinite',
               'fly': 'fly 15s linear infinite',
+              'scan': 'scan 8s linear infinite',
             },
             keyframes: {
               blob: {
@@ -54,6 +55,10 @@
                 '50%': { transform: 'scale(1) translateX(-10px)' },
                 '90%': { opacity: '0.4', transform: 'scale(1.1) translateX(10px)' },
                 '100%': { top: '-20%', opacity: '0', transform: 'scale(1.2) translateX(0)' },
+              },
+              scan: {
+                '0%': { top: '-20%' },
+                '100%': { top: '120%' },
               }
             }
           }
@@ -67,20 +72,50 @@
         overflow-x: hidden;
       }
       
-      /* Technical Grid Background (Terminal Style) */
-      .bg-grid {
+      /* Cyber Grid Background */
+      .cyber-grid {
         position: fixed;
         top: 0;
         left: 0;
         width: 100vw;
         height: 100vh;
         z-index: -2;
+        /* Grid Lines - Increased Opacity for Visibility */
         background-image: 
-          linear-gradient(to right, rgba(99, 102, 241, 0.05) 1px, transparent 1px),
-          linear-gradient(to bottom, rgba(99, 102, 241, 0.05) 1px, transparent 1px);
+          linear-gradient(to right, rgba(99, 102, 241, 0.25) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(99, 102, 241, 0.25) 1px, transparent 1px);
         background-size: 50px 50px;
-        mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
-        -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+        pointer-events: none;
+      }
+
+      /* Glowing Scanline Effect */
+      .cyber-grid::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 200px; /* Height of the beam */
+        background: linear-gradient(
+          to bottom, 
+          transparent, 
+          rgba(99, 102, 241, 0.4) 50%, 
+          transparent
+        );
+        animation: scan 6s linear infinite;
+        filter: blur(8px);
+        opacity: 0.8;
+      }
+      
+      /* Additional faint radial glow to center attention */
+      .bg-glow {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100vw;
+        height: 100vh;
+        background: radial-gradient(circle at center, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
+        z-index: -2;
         pointer-events: none;
       }
 
@@ -202,7 +237,8 @@
 </script>
 </head>
   <body>
-    <div class="bg-grid"></div>
+    <div class="cyber-grid"></div>
+    <div class="bg-glow"></div>
     <div class="liquid-bg">
       <div class="absolute top-0 left-0 w-[50vw] h-[50vh] bg-primary/20 rounded-full blur-[120px] mix-blend-screen animate-blob"></div>
       <div class="absolute bottom-0 right-0 w-[50vw] h-[50vh] bg-secondary/20 rounded-full blur-[120px] mix-blend-screen animate-blob animation-delay-2000"></div>

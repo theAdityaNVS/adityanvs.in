@@ -19,7 +19,6 @@ const Navbar: React.FC = () => {
     { name: 'Services', href: '#skills' },
     { name: 'Experience', href: '#experience' },
     { name: 'Projects', href: '#projects' },
-    { name: 'Roadmap', href: '#roadmap' },
     { name: 'Contact', href: '#contact' },
   ];
 
@@ -60,6 +59,7 @@ const Navbar: React.FC = () => {
                 `}
               >
                 <span className="relative z-10">{link.name}</span>
+                {/* Subtle hover shine for links */}
                 {!isScrolled && (
                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
                 )}

@@ -6,7 +6,6 @@ import Experience from './components/sections/Experience';
 import Projects from './components/sections/Projects';
 import AIAssistant from './components/AIAssistant';
 import Contact from './components/sections/Contact';
-import DeploymentRoadmap from './components/sections/DeploymentRoadmap';
 import ScrollReveal from './components/ui/ScrollReveal';
 
 const App: React.FC = () => {
@@ -30,10 +29,6 @@ const App: React.FC = () => {
 
         <ScrollReveal>
           <Projects />
-        </ScrollReveal>
-
-        <ScrollReveal>
-          <DeploymentRoadmap />
         </ScrollReveal>
         
         <ScrollReveal>

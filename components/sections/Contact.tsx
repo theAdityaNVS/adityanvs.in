@@ -1,7 +1,6 @@
 import React from 'react';
 import { Mail, MapPin, Calendar } from 'lucide-react';
 import { RESUME_DATA } from '../../data/constants';
-import DecryptedText from '../ui/DecryptedText';
 
 const Contact: React.FC = () => {
   return (
@@ -11,7 +10,7 @@ const Contact: React.FC = () => {
           
           <div>
             <h2 className="text-4xl font-display font-bold text-white mb-6">
-              <DecryptedText text="Let's Create Something Amazing Together." />
+              Let's Create Something Amazing Together.
             </h2>
             <p className="text-slate-400 mb-8 text-lg">
               I'm currently looking for new opportunities. Whether you have a question or just want to say hi, my inbox is always open.

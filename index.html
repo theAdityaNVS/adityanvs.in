@@ -24,8 +24,9 @@
               darker: '#020617', // Slate 950
             },
             animation: {
-              'blob': 'blob 7s infinite',
+              'blob': 'blob 10s infinite',
               'float': 'float 6s ease-in-out infinite',
+              'shine': 'shine 8s linear infinite',
             },
             keyframes: {
               blob: {
@@ -37,6 +38,10 @@
               float: {
                 '0%, 100%': { transform: 'translateY(0)' },
                 '50%': { transform: 'translateY(-20px)' },
+              },
+              shine: {
+                '0%': { backgroundPosition: '200% center' },
+                '100%': { backgroundPosition: '-200% center' },
               }
             }
           }
@@ -49,6 +54,91 @@
         color: #f8fafc;
         overflow-x: hidden;
       }
+      
+      /* Liquid Backgrounds */
+      .liquid-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: -1;
+        overflow: hidden;
+        pointer-events: none;
+      }
+      
+      /* Apple-style Glass Panel */
+      .glass-panel {
+        background: rgba(30, 41, 59, 0.4);
+        backdrop-filter: blur(24px) saturate(140%);
+        -webkit-backdrop-filter: blur(24px) saturate(140%);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 
+          0 4px 6px -1px rgba(0, 0, 0, 0.1), 
+          0 2px 4px -1px rgba(0, 0, 0, 0.06),
+          inset 0 0 20px rgba(255, 255, 255, 0.02);
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      
+      .glass-panel:hover {
+        background: rgba(30, 41, 59, 0.6);
+        border-color: rgba(255, 255, 255, 0.2);
+        box-shadow: 
+          0 20px 25px -5px rgba(0, 0, 0, 0.1), 
+          0 10px 10px -5px rgba(0, 0, 0, 0.04),
+          inset 0 0 30px rgba(255, 255, 255, 0.05);
+        transform: translateY(-5px);
+      }
+
+      /* Gel Effect for Navbar */
+      .glass-gel {
+        background: rgba(2, 6, 23, 0.75);
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        box-shadow: 
+          0 8px 32px 0 rgba(0, 0, 0, 0.37),
+          inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+      }
+
+      /* Refraction/Shine Effect */
+      .refraction-shine {
+        position: relative;
+        overflow: hidden;
+      }
+      .refraction-shine::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(
+          to right,
+          transparent,
+          rgba(255, 255, 255, 0.1) 50%,
+          transparent
+        );
+        transform: skewX(-25deg);
+        transition: 0.5s;
+        pointer-events: none;
+      }
+      .refraction-shine:hover::before {
+        left: 200%;
+        transition: 0.7s ease-in-out;
+      }
+
+      /* Scroll Reveal Animations */
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 1s cubic-bezier(0.5, 0, 0, 1);
+      }
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
       /* Custom scrollbar */
       ::-webkit-scrollbar {
         width: 8px;
@@ -62,17 +152,6 @@
       }
       ::-webkit-scrollbar-thumb:hover {
         background: #475569;
-      }
-      
-      /* Scroll Reveal Animations */
-      .reveal {
-        opacity: 0;
-        transform: translateY(30px);
-        transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
-      }
-      .reveal.active {
-        opacity: 1;
-        transform: translateY(0);
       }
     </style>
   <script type="importmap">
@@ -88,6 +167,11 @@
 </script>
 </head>
   <body>
+    <div class="liquid-bg">
+      <div class="absolute top-0 left-0 w-[50vw] h-[50vh] bg-primary/20 rounded-full blur-[120px] mix-blend-screen animate-blob"></div>
+      <div class="absolute bottom-0 right-0 w-[50vw] h-[50vh] bg-secondary/20 rounded-full blur-[120px] mix-blend-screen animate-blob animation-delay-2000"></div>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40vw] h-[40vh] bg-accent/20 rounded-full blur-[100px] mix-blend-screen animate-pulse"></div>
+    </div>
     <div id="root"></div>
   </body>
 </html>

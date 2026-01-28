@@ -1,5 +1,5 @@
 import React from 'react';
-import { Code, Database, Server, Wrench, Cpu, Globe } from 'lucide-react';
+import { Code, Database, Server, Wrench, Cpu, Globe, Layers } from 'lucide-react';
 import { SKILLS } from '../constants';
 
 const Skills: React.FC = () => {
@@ -8,18 +8,20 @@ const Skills: React.FC = () => {
       case 'atom': return <Code />;
       case 'server': return <Server />;
       case 'database': return <Database />;
-      case 'sparkles': return <Cpu />; // AI
+      case 'sparkles': return <Cpu />; 
+      case 'container': return <Layers />; 
+      case 'git-branch': return <Globe />; 
       default: return <Wrench />;
     }
   };
 
   return (
-    <section id="skills" className="py-24 bg-dark relative">
+    <section id="skills" className="py-24 relative">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-display font-bold text-white mb-4">Tech Stack & Expertise</h2>
-          <p className="text-slate-400 max-w-2xl mx-auto">
-            A comprehensive overview of the technologies I use to build scalable solutions.
+        <div className="text-center mb-20">
+          <h2 className="text-4xl font-display font-bold text-white mb-6">Expertise & Stack</h2>
+          <p className="text-slate-400 max-w-2xl mx-auto text-lg font-light">
+            I craft digital products using a modern, scalable, and performance-focused technology stack.
           </p>
         </div>
 
@@ -27,19 +29,27 @@ const Skills: React.FC = () => {
           {SKILLS.map((skill) => (
             <div 
               key={skill.name}
-              className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-primary/50 transition-all hover:-translate-y-1"
+              className="glass-panel p-6 rounded-2xl group cursor-default"
             >
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-4">
-                {getIcon(skill.icon)}
+              <div className="flex items-start justify-between mb-6">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-300 ring-1 ring-white/10 shadow-[0_0_15px_rgba(255,255,255,0.05)]">
+                    {getIcon(skill.icon)}
+                  </div>
+                  <span className="text-xs font-medium text-slate-500 uppercase tracking-widest">{skill.category}</span>
               </div>
-              <h3 className="text-lg font-bold text-white mb-2">{skill.name}</h3>
-              <div className="w-full bg-slate-800 rounded-full h-1.5 mb-2">
+              
+              <h3 className="text-lg font-bold text-white mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-400 transition-all">
+                  {skill.name}
+              </h3>
+              
+              <div className="relative w-full h-1.5 bg-slate-800/50 rounded-full overflow-hidden">
                 <div 
-                  className="bg-primary h-1.5 rounded-full transition-all duration-1000 ease-out"
+                  className="absolute top-0 left-0 h-full bg-gradient-to-r from-primary to-secondary rounded-full"
                   style={{ width: `${skill.level}%` }}
-                ></div>
+                >
+                    <div className="absolute top-0 right-0 bottom-0 w-full animate-shine bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
+                </div>
               </div>
-              <span className="text-xs text-slate-500 uppercase tracking-wider">{skill.category}</span>
             </div>
           ))}
         </div>

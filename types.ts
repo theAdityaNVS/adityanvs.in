@@ -16,6 +16,12 @@ export interface Skill {
   icon: string;
 }
 
+export interface Service {
+  title: string;
+  description: string;
+  icon: string;
+}
+
 export interface Experience {
   id: string;
   role: string;

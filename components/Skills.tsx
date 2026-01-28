@@ -1,6 +1,6 @@
 import React from 'react';
-import { Code, Database, Server, Wrench, Cpu, Globe, Layers } from 'lucide-react';
-import { SKILLS } from '../constants';
+import { Code, Database, Server, Wrench, Cpu, Globe, Layers, Smartphone, Layout, PenTool, Braces } from 'lucide-react';
+import { SKILLS, SERVICES } from '../constants';
 
 const Skills: React.FC = () => {
   const getIcon = (iconName: string) => {
@@ -10,46 +10,55 @@ const Skills: React.FC = () => {
       case 'database': return <Database />;
       case 'sparkles': return <Cpu />; 
       case 'container': return <Layers />; 
-      case 'git-branch': return <Globe />; 
+      case 'git-branch': return <Globe />;
+      case 'app': return <Smartphone />;
+      case 'palette': return <PenTool />;
+      case 'layout': return <Layout />;
       default: return <Wrench />;
     }
   };
 
   return (
-    <section id="skills" className="py-24 relative">
+    <section id="skills" className="py-32 relative">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-20">
-          <h2 className="text-4xl font-display font-bold text-white mb-6">Expertise & Stack</h2>
-          <p className="text-slate-400 max-w-2xl mx-auto text-lg font-light">
-            I craft digital products using a modern, scalable, and performance-focused technology stack.
-          </p>
+        <div className="mb-20">
+            <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-6">What I Do</h2>
+            <div className="h-1 w-20 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+        {/* Services Grid (Bento Style) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-24">
+            {SERVICES.map((service, index) => (
+                <div 
+                    key={index} 
+                    className={`glass-panel p-8 rounded-4xl flex flex-col items-start justify-between group hover:bg-white/10 transition-all duration-300 ${index === 0 ? 'lg:col-span-2 bg-gradient-to-br from-white/5 to-transparent' : ''}`}
+                >
+                    <div className="mb-6 w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-300 shadow-inner">
+                        {getIcon(service.icon)}
+                    </div>
+                    <div>
+                        <h3 className="text-xl font-bold text-white mb-3">{service.title}</h3>
+                        <p className="text-slate-400 text-sm leading-relaxed">{service.description}</p>
+                    </div>
+                </div>
+            ))}
+        </div>
+
+        {/* Tech Stack Marquee / Cloud */}
+        <div className="text-center mb-12">
+            <h3 className="text-2xl font-display font-bold text-white mb-8">Technical Proficiency</h3>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-4">
           {SKILLS.map((skill) => (
             <div 
               key={skill.name}
-              className="glass-panel p-6 rounded-2xl group cursor-default"
+              className="p-4 rounded-2xl bg-white/5 border border-white/5 flex flex-col items-center justify-center gap-3 hover:bg-white/10 transition-colors group cursor-default"
             >
-              <div className="flex items-start justify-between mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-300 ring-1 ring-white/10 shadow-[0_0_15px_rgba(255,255,255,0.05)]">
-                    {getIcon(skill.icon)}
-                  </div>
-                  <span className="text-xs font-medium text-slate-500 uppercase tracking-widest">{skill.category}</span>
+              <div className="text-slate-400 group-hover:text-primary transition-colors">
+                {getIcon(skill.icon)}
               </div>
-              
-              <h3 className="text-lg font-bold text-white mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-400 transition-all">
-                  {skill.name}
-              </h3>
-              
-              <div className="relative w-full h-1.5 bg-slate-800/50 rounded-full overflow-hidden">
-                <div 
-                  className="absolute top-0 left-0 h-full bg-gradient-to-r from-primary to-secondary rounded-full"
-                  style={{ width: `${skill.level}%` }}
-                >
-                    <div className="absolute top-0 right-0 bottom-0 w-full animate-shine bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
-                </div>
-              </div>
+              <span className="text-xs font-semibold text-slate-300 text-center">{skill.name}</span>
             </div>
           ))}
         </div>

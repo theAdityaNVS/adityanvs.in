@@ -1,4 +1,4 @@
-import { Project, Skill, Experience, SocialLink } from './types';
+import { Project, Skill, Experience, SocialLink, Service } from './types';
 
 export const RESUME_DATA = {
   name: "Aditya Nadamuni",
@@ -8,6 +8,13 @@ export const RESUME_DATA = {
   email: "contact@adityanadamuni.dev",
   availability: "Open to new opportunities",
 };
+
+export const SERVICES: Service[] = [
+  { title: "App Development", description: "Building robust web and mobile applications using React and React Native ecosystem.", icon: "app" },
+  { title: "UI/UX Engineering", description: "Translating design concepts into pixel-perfect, interactive experiences with Tailwind CSS.", icon: "palette" },
+  { title: "AI Integration", description: "Enhancing applications with intelligent features using Gemini and OpenAI APIs.", icon: "sparkles" },
+  { title: "Backend Architecture", description: "Designing scalable APIs and database schemas with Node.js and MongoDB.", icon: "server" },
+];
 
 export const SKILLS: Skill[] = [
   { name: "React / Next.js", level: 95, category: "frontend", icon: "atom" },
@@ -26,7 +33,7 @@ export const PROJECTS: Project[] = [
     title: "Nebula Dashboard",
     description: "A real-time analytics dashboard powered by AI for predictive insights. Features dark mode, drag-and-drop widgets, and natural language query processing.",
     tags: ["React", "TypeScript", "Gemini API", "Recharts"],
-    imageUrl: "https://picsum.photos/600/400?random=1",
+    imageUrl: "https://picsum.photos/800/600?random=1",
     demoUrl: "#",
     githubUrl: "#",
     featured: true,
@@ -36,7 +43,7 @@ export const PROJECTS: Project[] = [
     title: "EcoMarket",
     description: "A sustainable e-commerce marketplace built with the MERN stack. Includes geolocation features, payment processing with Stripe, and AI product recommendations.",
     tags: ["MongoDB", "Express", "React", "Node.js"],
-    imageUrl: "https://picsum.photos/600/400?random=2",
+    imageUrl: "https://picsum.photos/800/600?random=2",
     demoUrl: "#",
     githubUrl: "#",
     featured: true,
@@ -46,7 +53,7 @@ export const PROJECTS: Project[] = [
     title: "DevFlow CLI",
     description: "A command-line tool for developers to scaffold projects and manage cloud deployments efficiently. Written in Rust and wrapped for Node.js.",
     tags: ["Rust", "Node.js", "CLI"],
-    imageUrl: "https://picsum.photos/600/400?random=3",
+    imageUrl: "https://picsum.photos/800/600?random=3",
     featured: false,
   },
 ];

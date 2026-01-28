@@ -1,78 +1,69 @@
 import React from 'react';
-import { ExternalLink, Github, ArrowUpRight } from 'lucide-react';
+import { ExternalLink, Github, ArrowRight } from 'lucide-react';
 import { PROJECTS } from '../constants';
 
 const Projects: React.FC = () => {
   return (
-    <section id="projects" className="py-32 relative">
+    <section id="projects" className="py-32 relative bg-darker/50">
       <div className="container mx-auto px-6">
-        <div className="mb-20 flex items-end justify-between">
+        <div className="mb-20 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
-            <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">Selected Works</h2>
+            <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">Featured Projects</h2>
             <div className="h-1 w-20 bg-gradient-to-r from-primary to-transparent rounded-full"></div>
           </div>
-          <p className="hidden md:block text-slate-400 max-w-sm text-right">
-             A curation of projects leveraging modern tech stacks and AI integration.
-          </p>
+          <a href="https://github.com" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors">
+            View Github <ArrowRight size={16} />
+          </a>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {PROJECTS.map((project) => (
             <div 
               key={project.id} 
-              className="glass-panel rounded-3xl overflow-hidden group h-full flex flex-col refraction-shine"
+              className="glass-panel rounded-4xl overflow-hidden group flex flex-col border-0 bg-slate-900/40 hover:bg-slate-900/60 transition-all duration-500"
             >
-              {/* Image Container */}
-              <div className="relative h-56 overflow-hidden">
+              {/* Image Area - Tall and App-like */}
+              <div className="relative aspect-[4/3] overflow-hidden m-2 rounded-3xl">
                 <img 
                   src={project.imageUrl} 
                   alt={project.title} 
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-darker via-darker/50 to-transparent opacity-90" />
+                <div className="absolute inset-0 bg-gradient-to-t from-darker/80 via-transparent to-transparent opacity-60" />
                 
-                {/* Floating Action Button */}
-                <div className="absolute top-4 right-4 translate-x-10 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300">
-                    <a href={project.demoUrl || '#'} className="w-10 h-10 rounded-full bg-white text-darker flex items-center justify-center hover:scale-110 transition-transform shadow-lg">
-                        <ArrowUpRight size={20} />
-                    </a>
+                {/* Overlay Tags */}
+                <div className="absolute bottom-4 left-4 flex flex-wrap gap-2">
+                     {project.tags.slice(0, 2).map(tag => (
+                         <span key={tag} className="px-3 py-1 bg-black/50 backdrop-blur-md rounded-full text-[10px] font-bold text-white border border-white/10">
+                             {tag}
+                         </span>
+                     ))}
                 </div>
               </div>
 
-              {/* Content */}
-              <div className="p-8 flex flex-col flex-grow">
-                <div className="mb-4">
-                    <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-primary transition-colors">
-                    {project.title}
+              {/* Content Area */}
+              <div className="p-6 flex flex-col flex-grow">
+                <div className="flex justify-between items-start mb-3">
+                    <h3 className="text-2xl font-bold text-white group-hover:text-primary transition-colors">
+                        {project.title}
                     </h3>
-                    <div className="flex flex-wrap gap-2 mb-4">
-                        {project.tags.map((tag) => (
-                            <span key={tag} className="text-[10px] uppercase tracking-wider font-bold px-2 py-1 rounded-md bg-white/5 text-slate-300 border border-white/5">
-                            {tag}
-                            </span>
-                        ))}
+                    <div className="flex gap-2">
+                        {project.demoUrl && (
+                             <a href={project.demoUrl} className="p-2 rounded-full bg-white/5 text-white hover:bg-white/20 transition-colors" title="View Demo">
+                                 <ExternalLink size={16} />
+                             </a>
+                        )}
+                        {project.githubUrl && (
+                             <a href={project.githubUrl} className="p-2 rounded-full bg-white/5 text-white hover:bg-white/20 transition-colors" title="View Code">
+                                 <Github size={16} />
+                             </a>
+                        )}
                     </div>
                 </div>
                 
-                <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
+                <p className="text-slate-400 text-sm leading-relaxed line-clamp-3">
                   {project.description}
                 </p>
-
-                {/* Links */}
-                <div className="flex items-center gap-4 mt-auto pt-6 border-t border-white/5">
-                  {project.demoUrl && (
-                    <a href={project.demoUrl} className="flex items-center gap-2 text-sm font-semibold text-white hover:text-primary transition-colors">
-                      <ExternalLink size={16} />
-                      Live Demo
-                    </a>
-                  )}
-                  {project.githubUrl && (
-                    <a href={project.githubUrl} className="flex items-center gap-2 text-sm font-semibold text-slate-400 hover:text-white transition-colors">
-                      <Github size={16} />
-                      Source Code
-                    </a>
-                  )}
-                </div>
               </div>
             </div>
           ))}

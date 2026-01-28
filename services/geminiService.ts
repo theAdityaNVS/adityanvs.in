@@ -1,6 +1,8 @@
 import { GoogleGenAI } from "@google/genai";
 import { RESUME_DATA, SKILLS, PROJECTS, EXPERIENCE } from '../data/constants';
 
+declare const process: { env: { API_KEY: string } };
+
 // Construct a system prompt based on the static data
 const SYSTEM_INSTRUCTION = `
 You are Nova, an AI Assistant for ${RESUME_DATA.name}'s portfolio website.
@@ -29,10 +31,6 @@ GUIDELINES:
 let aiClient: GoogleGenAI | null = null;
 
 export const initGemini = () => {
-  if (!process.env.API_KEY) {
-    console.warn("Gemini API Key is missing.");
-    return null;
-  }
   if (!aiClient) {
     aiClient = new GoogleGenAI({ apiKey: process.env.API_KEY });
   }
@@ -41,21 +39,23 @@ export const initGemini = () => {
 
 export const sendMessageToGemini = async (history: { role: 'user' | 'model'; text: string }[], newMessage: string) => {
   const client = initGemini();
-  if (!client) {
-    throw new Error("API Key not configured");
+
+  try {
+    const chat = client.chats.create({
+      model: 'gemini-3-flash-preview',
+      config: {
+        systemInstruction: SYSTEM_INSTRUCTION,
+      },
+      history: history.map(h => ({
+        role: h.role,
+        parts: [{ text: h.text }],
+      })),
+    });
+
+    const result = await chat.sendMessage({ message: newMessage });
+    return result.text;
+  } catch (error) {
+    console.error("Gemini API Error:", error);
+    throw error;
   }
-
-  const chat = client.chats.create({
-    model: 'gemini-3-flash-preview',
-    config: {
-      systemInstruction: SYSTEM_INSTRUCTION,
-    },
-    history: history.map(h => ({
-      role: h.role,
-      parts: [{ text: h.text }],
-    })),
-  });
-
-  const result = await chat.sendMessage({ message: newMessage });
-  return result.text;
 };

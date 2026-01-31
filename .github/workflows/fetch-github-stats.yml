@@ -1,0 +1,29 @@
+name: "Fetch GitHub Stats"
+
+on:
+  schedule:
+    # hourly at minute 0
+    - cron: "0 * * * *"
+  workflow_dispatch: {}
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch stats and languages SVG
+        run: |
+          set -e
+          mkdir -p public
+          # Try public service (official). If it fails, leave previous files unchanged.
+          curl -fsSL "https://github-readme-stats.vercel.app/api?username=theAdityaNVS&theme=default&show_icons=true&hide_border=true&count_private=true" -o public/github-stats.svg || echo "github-stats fetch failed"
+          curl -fsSL "https://github-readme-stats.vercel.app/api/top-langs/?username=theAdityaNVS&theme=default&layout=compact&hide_border=true" -o public/github-langs.svg || echo "github-langs fetch failed"
+
+      - name: Commit updated SVGs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/github-stats.svg public/github-langs.svg || true
+          git commit -m "chore: update github stats (automated)" || echo "no changes to commit"
+          git push || echo "push failed"

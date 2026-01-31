@@ -14,12 +14,38 @@ const GithubStats: React.FC = () => {
   const iconColor = 'ec4899'; // secondary color
   const ringColor = '06b6d4'; // accent color
 
-  const statsUrl = `https://github-readme-stats.vercel.app/api?username=${username}&show_icons=true&hide_border=true&title_color=${titleColor}&text_color=${textColor}&icon_color=${iconColor}&ring_color=${ringColor}&bg_color=${transparency}`;
+  // Use local proxy that will try your self-hosted endpoint, then the public service, then local fallbacks
+  const statsUrl = `/api/github-stats?username=${username}&kind=stats`;
   
-  const streakUrl = `https://github-readme-streak-stats.herokuapp.com/?user=${username}&hide_border=true&title_color=${titleColor}&text_color=${textColor}&icon_color=${iconColor}&ring_color=${ringColor}&background=${transparency}&stroke=${titleColor}&fire=${iconColor}`;
+  const streakUrl = `https://github-readme-streak-stats.herokuapp.com?user=${username}&theme=transparent&hide_border=true&exclude_days=Sun%2CSat`;
   
-  const langUrl = `https://github-readme-stats.vercel.app/api/top-langs/?username=${username}&layout=compact&hide_border=true&title_color=${titleColor}&text_color=${textColor}&icon_color=${iconColor}&bg_color=${transparency}`;
+  const langUrl = `/api/github-stats?username=${username}&kind=langs`
+    
+  // Fallbacks: try public service first, then local static SVG to avoid broken images
+  const handleStatsError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    const img = e.currentTarget;
+    const attempts = parseInt(img.dataset.attempts || '0', 10);
+    if (attempts === 0) {
+      img.dataset.attempts = '1';
+      img.src = `https://github-readme-stats.vercel.app/api?username=${username}&theme=default&show_icons=true&hide_border=true&count_private=true`;
+    } else {
+      img.dataset.attempts = '2';
+      img.src = '/github-stats-fallback.svg';
+    }
+  };
 
+  const handleLangError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    const img = e.currentTarget;
+    const attempts = parseInt(img.dataset.attempts || '0', 10);
+    if (attempts === 0) {
+      img.dataset.attempts = '1';
+      img.src = `https://github-readme-stats.vercel.app/api/top-langs/?username=${username}&theme=default&layout=compact&hide_border=true`;
+    } else {
+      img.dataset.attempts = '2';
+      img.src = '/github-langs-fallback.svg';
+    }
+  };
+    
   return (
     <section id="github" className="py-24 relative overflow-hidden">
         {/* Background Decorative Elements */}
@@ -58,6 +84,8 @@ const GithubStats: React.FC = () => {
                                 alt="Github Stats"
                                 className="w-full h-auto max-w-md object-contain"
                                 loading="lazy"
+                                onError={handleStatsError}
+                                data-attempts={0}
                              />
                          </div>
                     </div>
@@ -102,6 +130,8 @@ const GithubStats: React.FC = () => {
                                 alt="Top Languages"
                                 className="w-full md:w-2/3 h-auto object-contain"
                                 loading="lazy"
+                                onError={handleLangError}
+                                data-attempts={0}
                             />
                          </div>
                     </div>

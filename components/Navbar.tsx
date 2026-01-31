@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Terminal } from 'lucide-react';
+import { Menu, X, Terminal, Star } from 'lucide-react';
 import MagneticWrapper from './ui/MagneticWrapper';
 
 const Navbar: React.FC = () => {
@@ -80,6 +80,13 @@ const Navbar: React.FC = () => {
               `}
             >
               GitHub
+            </a>
+          </MagneticWrapper>
+
+          <MagneticWrapper>
+            <a href="#github" title="Open GitHub section" className={`flex items-center justify-center p-2 rounded-full transition-colors ml-2 ${isScrolled ? 'text-slate-300 hover:text-white hover:bg-white/10' : 'text-slate-300 hover:text-white'}`}>
+              <Star className="h-4 w-4" />
+              <span className="sr-only">Open GitHub section</span>
             </a>
           </MagneticWrapper>
         </div>

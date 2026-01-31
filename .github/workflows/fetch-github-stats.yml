@@ -16,9 +16,24 @@ jobs:
         run: |
           set -e
           mkdir -p public
-          # Try public service (official). If it fails, leave previous files unchanged.
-          curl -fsSL "https://github-readme-stats.vercel.app/api?username=theAdityaNVS&theme=default&show_icons=true&hide_border=true&count_private=true" -o public/github-stats.svg || echo "github-stats fetch failed"
-          curl -fsSL "https://github-readme-stats.vercel.app/api/top-langs/?username=theAdityaNVS&theme=default&layout=compact&hide_border=true" -o public/github-langs.svg || echo "github-langs fetch failed"
+          # Try your self-hosted service first, then official public service, finally fallback local SVGs
+          if curl -fsSL "https://github-readme-stats-theadityanvs-projects.vercel.app/api?username=theAdityaNVS&theme=default&show_icons=true&hide_border=true&count_private=true" -o public/github-stats.svg; then
+            echo "fetched github-stats.svg from self-hosted"
+          elif curl -fsSL "https://github-readme-stats.vercel.app/api?username=theAdityaNVS&theme=default&show_icons=true&hide_border=true&count_private=true" -o public/github-stats.svg; then
+            echo "fetched github-stats.svg from public service"
+          else
+            echo "both fetches failed — using fallback for github-stats.svg"
+            cp public/github-stats-fallback.svg public/github-stats.svg || true
+          fi
+
+          if curl -fsSL "https://github-readme-stats-theadityanvs-projects.vercel.app/api/top-langs/?username=theAdityaNVS&theme=default&show_icons=true&hide_border=true&layout=compact" -o public/github-langs.svg; then
+            echo "fetched github-langs.svg from self-hosted"
+          elif curl -fsSL "https://github-readme-stats.vercel.app/api/top-langs/?username=theAdityaNVS&theme=default&layout=compact&hide_border=true" -o public/github-langs.svg; then
+            echo "fetched github-langs.svg from public service"
+          else
+            echo "both fetches failed — using fallback for github-langs.svg"
+            cp public/github-langs-fallback.svg public/github-langs.svg || true
+          fi
 
       - name: Commit updated SVGs
         run: |

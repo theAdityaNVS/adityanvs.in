@@ -4,9 +4,9 @@ export const RESUME_DATA = {
   name: "Aditya Nadamuni",
   title: "Full Stack Developer | MERN Specialist",
   bio: "I transform complex problems into beautiful, intuitive web applications. Specializing in the MERN stack, I build scalable solutions with a focus on smooth animations and user-centric design.",
-  location: "Bangalore, India",
-  email: "contact@adityanadamuni.dev",
-  availability: "Open to new opportunities",
+  location: "Hyderabad, India",
+  email: "aditya.nadamuni@gmail.com",
+  availability: "Available",
 };
 
 export const SERVICES: Service[] = [

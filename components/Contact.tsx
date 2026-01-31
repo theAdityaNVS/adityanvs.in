@@ -14,7 +14,7 @@ const Contact: React.FC = () => {
               <DecryptedText text="Let's Create Something Amazing Together." />
             </h2>
             <p className="text-slate-400 mb-8 text-lg">
-              I'm currently looking for new opportunities. Whether you have a question or just want to say hi, my inbox is always open.
+              I'm currently open to new opportunities. Whether you have a question or just want to say hi, my inbox is always open.
             </p>
             
             <div className="space-y-6">

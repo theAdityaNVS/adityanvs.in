@@ -86,5 +86,5 @@ export const EXPERIENCE: Experience[] = [
 export const SOCIALS: SocialLink[] = [
   { platform: "GitHub", url: "https://github.com/theAdityaNVS", icon: "github" },
   { platform: "LinkedIn", url: "https://www.linkedin.com/in/theadityanvs/", icon: "linkedin" },
-  { platform: "Twitter", url: "https://twitter.com", icon: "twitter" },
+  { platform: "x", url: "https://x.com/theadityanvs", icon: "x" },
 ];

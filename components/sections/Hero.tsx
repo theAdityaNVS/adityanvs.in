@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Github, Linkedin, Twitter, ChevronDown, Sparkles, MapPin, Mail } from 'lucide-react';
+import { ArrowRight, Github, Linkedin, X, ChevronDown, Sparkles, MapPin, Mail } from 'lucide-react';
 import { SOCIALS, RESUME_DATA } from '../../data/constants';
 import MagneticWrapper from '../ui/MagneticWrapper';
 import TiltCard from '../ui/TiltCard';
@@ -106,7 +106,7 @@ const Hero: React.FC = () => {
                     >
                         {social.icon === 'github' && <Github size={22} />}
                         {social.icon === 'linkedin' && <Linkedin size={22} />}
-                        {social.icon === 'twitter' && <Twitter size={22} />}
+                        {social.icon === 'x' && <X size={22} />}
                     </a>
                 </MagneticWrapper>
               ))}

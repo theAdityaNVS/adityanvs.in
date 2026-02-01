@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Code, Database, Server, Wrench, Cpu, Globe, Layers, Smartphone, Layout, PenTool, Braces } from 'lucide-react';
+import { Code, Database, Server, Wrench, Cpu, Globe, Layers, Smartphone, Layout, PenTool } from 'lucide-react';
 import { SKILLS, SERVICES } from '../../data/constants';
 import TiltCard from '../ui/TiltCard';
 import { Icons } from '../ui/Icons';

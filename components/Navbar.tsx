@@ -38,7 +38,7 @@ const Navbar: React.FC = () => {
         `}
       >
         {/* Logo */}
-        <a href="#" className="flex items-center gap-2 group">
+        <a href="#about" className="flex items-center gap-2 group">
           <div className={`p-1.5 rounded-lg transition-colors ${isScrolled ? 'bg-primary/20 text-primary' : 'bg-white/10 text-white'}`}>
              <Terminal className="h-5 w-5" />
           </div>

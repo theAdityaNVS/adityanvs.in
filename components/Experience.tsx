@@ -1,5 +1,5 @@
 import React from 'react';
-import { Briefcase, Building2, Calendar } from 'lucide-react';
+import { Building2, Calendar } from 'lucide-react';
 import { EXPERIENCE } from '../constants';
 import DecryptedText from './ui/DecryptedText';
 import TiltCard from './ui/TiltCard';

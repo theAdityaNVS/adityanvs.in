@@ -2,7 +2,8 @@ import React, { useMemo } from 'react';
 import { Calendar } from 'lucide-react';
 import { EXPERIENCE } from '../../data/constants';
 import TiltCard from '../ui/TiltCard';
-import { ChaseLogo, TCSLogo, HackerEarthLogo, LingoJrLogo, DefaultCompanyLogo } from '../ui/CompanyLogos';
+import { ChaseLogo, TCSLogo, HackerEarthLogo, LingoJrLogo } from '../ui/CompanyLogos';
+import DefaultCompanyLogo from '../ui/DefaultCompanyLogo';
 
 const Experience: React.FC = () => {
   // Mapping logic to get the right logo component

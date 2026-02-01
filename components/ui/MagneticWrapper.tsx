@@ -19,7 +19,9 @@ const MagneticWrapper: React.FC<MagneticWrapperProps> = ({ children, className =
     const x = clientX - (left + width / 2);
     const y = clientY - (top + height / 2);
 
-    setPosition({ x: x * 0.5, y: y * 0.5 }); // 0.5 is a dampening factor
+    // Use the provided strength prop to scale the movement; clamp to prevent extreme movement
+    const scale = Math.min(Math.max(strength / 60, 0.1), 1);
+    setPosition({ x: x * scale, y: y * scale });
   };
 
   const handleMouseLeave = () => {

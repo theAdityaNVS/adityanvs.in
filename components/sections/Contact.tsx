@@ -11,10 +11,10 @@ const Contact: React.FC = () => {
           
           <div>
             <h2 className="text-4xl font-display font-bold text-white mb-6">
-              Let's Create Something Amazing Together.
+              Let&apos;s Create Something Amazing Together.
             </h2>
             <p className="text-slate-400 mb-8 text-lg">
-              I'm currently looking for new opportunities. Whether you have a question or just want to say hi, my inbox is always open.
+              I&apos;m currently looking for new opportunities. Whether you have a question or just want to say hi, my inbox is always open.
             </p>
             
             <div className="space-y-6">

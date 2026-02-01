@@ -3,6 +3,7 @@ import { Send, Bot, Loader2, AlertCircle, X, MessageCircle } from 'lucide-react'
 import { sendMessageToGemini } from '../services/geminiService';
 import { Message } from '../types';
 import MagneticWrapper from './ui/MagneticWrapper';
+import { error as logError } from '../utils/logger';
 
 const AIAssistant: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -58,8 +59,6 @@ const AIAssistant: React.FC = () => {
       setMessages(prev => [...prev, aiMsg]);
     } catch (error) {
       // Use logger to keep output consistent and toggleable
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const { error: logError } = require('../utils/logger');
       logError('AI Error:', error);
       setHasError(true);
       const errorMsg: Message = {
@@ -164,7 +163,7 @@ const AIAssistant: React.FC = () => {
                     placeholder="Ask about Aditya..."
                     className="flex-1 bg-black/20 border border-white/10 rounded-xl pl-4 pr-10 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-primary/50 focus:bg-black/40 transition-all"
                     disabled={isLoading}
-                    autoFocus
+
                 />
                 <button
                     onClick={handleSend}

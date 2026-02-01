@@ -33,7 +33,7 @@ const DecryptedText: React.FC<DecryptedTextProps> = ({ text, className = '', ani
   const startScramble = () => {
     let iteration = 0;
     const interval = setInterval(() => {
-      setDisplayText(prev => 
+      setDisplayText(
         text
           .split('')
           .map((letter, index) => {

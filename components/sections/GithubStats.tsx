@@ -6,13 +6,6 @@ import DecryptedText from '../ui/DecryptedText';
 const GithubStats: React.FC = () => {
   const username = "theAdityaNVS"; 
   
-  // Configuration for stats to ensure they work correctly
-  // Using 'transparent' keyword is safer than hex codes for these specific APIs
-  const transparency = 'transparent'; 
-  const titleColor = '6366f1'; // primary color
-  const textColor = 'cbd5e1'; // slate-300
-  const iconColor = 'ec4899'; // secondary color
-  const ringColor = '06b6d4'; // accent color
 
   // Use local proxy that will try your self-hosted endpoint, then the public service, then local fallbacks
   const statsUrl = `/api/github-stats?username=${username}&kind=stats`;

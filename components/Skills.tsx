@@ -1,5 +1,5 @@
 import React from 'react';
-import { Code, Database, Server, Wrench, Cpu, Globe, Layers, Smartphone, Layout, PenTool, Braces } from 'lucide-react';
+import { Code, Database, Server, Wrench, Cpu, Globe, Layers, Smartphone, Layout, PenTool } from 'lucide-react';
 import { SKILLS, SERVICES } from '../constants';
 import DecryptedText from './ui/DecryptedText';
 import TiltCard from './ui/TiltCard';

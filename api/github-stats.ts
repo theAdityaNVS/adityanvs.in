@@ -1,12 +1,16 @@
 import fs from 'fs/promises';
 import path from 'path';
+import { error as logError } from '../utils/logger';
 
 // Simple proxy that tries a self-hosted endpoint first, then the public service,
 // and finally falls back to a static SVG in /public if both fail.
-export default async function handler(req: any, res: any) {
+type Req = { query?: Record<string, string | undefined> };
+type Res = { setHeader(name: string, value: string): void; status(code: number): { send(body: string): void } };
+
+export default async function handler(req: Req, res: Res) {
   try {
-    const username = String(req.query.username || 'theAdityaNVS');
-    const kind = String(req.query.kind || 'stats'); // 'stats' or 'langs'
+    const username = String(req.query?.username || 'theAdityaNVS');
+    const kind = String(req.query?.kind || 'stats'); // 'stats' or 'langs'
 
     const selfHostedBase = 'https://github-readme-stats-theadityanvs-projects.vercel.app';
     const publicBase = 'https://github-readme-stats.vercel.app';
@@ -28,8 +32,6 @@ export default async function handler(req: any, res: any) {
       try {
         const r = await fetch(url, { method: 'GET' });
         const contentType = r.headers.get('content-type') || '';
-        const status = r.status;
-
         // Accept only successful responses that look like SVG
         if (r.ok && contentType.includes('svg')) {
           const body = await r.text();
@@ -44,8 +46,9 @@ export default async function handler(req: any, res: any) {
           // continue to next
           continue;
         }
-      } catch (err) {
-        // network error - try next candidate
+      } catch (err: unknown) {
+        // network error - try next candidate (log for debugging)
+        logError('github-stats upstream fetch error:', err);
         continue;
       }
     }
@@ -58,18 +61,16 @@ export default async function handler(req: any, res: any) {
       res.setHeader('content-type', 'image/svg+xml; charset=utf-8');
       res.setHeader('cache-control', 's-maxage=86400');
       return res.status(200).send(svg);
-    } catch (err) {
-      // If fallback file missing, return a minimal SVG
+    } catch (err: unknown) {
+      // If fallback file missing, return a minimal SVG (log and return minimal)
+      logError('github-stats fallback read error:', err);
       const minimal = `<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" width="600" height="80"><rect width="100%" height="100%" fill="#0b1220"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#94a3b8" font-family="Inter, Arial, sans-serif" font-size="14">Stats unavailable</text></svg>`;
       res.setHeader('content-type', 'image/svg+xml; charset=utf-8');
       res.setHeader('cache-control', 's-maxage=60');
       return res.status(200).send(minimal);
     }
-  } catch (err: any) {
+  } catch (err: unknown) {
     // Log error for debugging (only visible in non-production by default)
-    // Avoid leaking internal details to clients
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const { error: logError } = require('../utils/logger');
     logError('github-stats proxy error:', err);
     return res.status(500).send('Internal Server Error');
   }

@@ -14,7 +14,7 @@ const Hero: React.FC = () => {
   const toRotate = [ "Java Full Stack Developer", "Spring Boot Expert", "Cloud Architect", "React Specialist" ];
 
   useEffect(() => {
-    let ticker = setInterval(() => {
+    const ticker = setInterval(() => {
       tick();
     }, delta);
 
@@ -22,9 +22,9 @@ const Hero: React.FC = () => {
   }, [text, delta]);
 
   const tick = () => {
-    let i = loopNum % toRotate.length;
-    let fullText = toRotate[i];
-    let updatedText = isDeleting ? fullText.substring(0, text.length - 1) : fullText.substring(0, text.length + 1);
+    const i = loopNum % toRotate.length;
+    const fullText = toRotate[i];
+    const updatedText = isDeleting ? fullText.substring(0, text.length - 1) : fullText.substring(0, text.length + 1);
 
     setText(updatedText);
 
@@ -61,7 +61,7 @@ const Hero: React.FC = () => {
             </div>
             
             <h1 className="text-5xl md:text-7xl font-display font-bold text-white mb-6 leading-[1.1] animate-[fadeIn_1.2s_ease-out] tracking-tight">
-              Hello, I'm <br />
+              Hello, I&apos;m <br />
               {/* Glowing Name Effect */}
               <span className="relative inline-block mt-2">
                  <span className="absolute -inset-1 bg-gradient-to-r from-primary via-secondary to-accent opacity-30 blur-xl"></span>
@@ -90,7 +90,7 @@ const Hero: React.FC = () => {
               
               <MagneticWrapper strength={60}>
                 <a href="#contact" className="px-8 py-4 glass-panel rounded-full font-semibold text-white hover:bg-white/10 transition-all w-full sm:w-auto justify-center flex">
-                    Let's Talk
+                    Let&apos;s Talk
                 </a>
               </MagneticWrapper>
             </div>
@@ -174,15 +174,17 @@ const Hero: React.FC = () => {
       </div>
       
       {/* Scroll Indicator */}
-      <div 
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-slate-500 cursor-pointer hover:text-white transition-colors" 
+      <button
+        type="button"
+        aria-label="Scroll to skills"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-slate-500 hover:text-white transition-colors"
         onClick={() => document.getElementById('skills')?.scrollIntoView({behavior: 'smooth'})}
       >
         <div className="flex flex-col items-center gap-2">
             <span className="text-[10px] uppercase tracking-[0.2em] opacity-50">Scroll Down</span>
             <ChevronDown size={20} className="opacity-75" />
         </div>
-      </div>
+      </button>
     </section>
   );
 };

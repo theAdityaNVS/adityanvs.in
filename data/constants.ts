@@ -5,7 +5,7 @@ export const RESUME_DATA = {
   title: "Java Full Stack Developer | Spring Boot & React Expert",
   bio: "Results-driven Java Full Stack Developer with 4+ years of hands-on experience at JP Morgan & TCS. Specializing in building scalable enterprise applications using Spring Boot, React, and microservices architecture. Multi-cloud certified (AWS, GCP, Azure) with a track record of optimizing system performance by up to 45% and enhancing data reliability.",
   location: "Hyderabad, Telangana, India",
-  email: "contact@adityanadamuni.dev",
+  email: "aditya.nadamuni@gmail.com",
   availability: "Open to Opportunities",
 };
 

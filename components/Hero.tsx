@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { ArrowRight, Github, Linkedin, X, ChevronDown, Sparkles, MapPin, Mail } from 'lucide-react';
 import { SOCIALS, RESUME_DATA } from '../constants';
 import MagneticWrapper from './ui/MagneticWrapper';
@@ -11,17 +11,9 @@ const Hero: React.FC = () => {
   const [delta, setDelta] = useState(300 - Math.random() * 100);
   const period = 2000;
   
-  const toRotate = [ "Full Stack Developer", "MERN Specialist", "UI/UX Engineer", "AI Integrator" ];
+  const toRotate = useMemo(() => [ "Full Stack Developer", "MERN Specialist", "UI/UX Engineer", "AI Integrator" ], []);
 
-  useEffect(() => {
-    const ticker = setInterval(() => {
-      tick();
-    }, delta);
-
-    return () => { clearInterval(ticker) };
-  }, [text, delta]);
-
-  const tick = () => {
+  const tick = useCallback(() => {
     const i = loopNum % toRotate.length;
     const fullText = toRotate[i];
     const updatedText = isDeleting ? fullText.substring(0, text.length - 1) : fullText.substring(0, text.length + 1);
@@ -42,7 +34,15 @@ const Hero: React.FC = () => {
     } else {
       if(!isDeleting && delta > 150) setDelta(100);
     }
-  };
+  }, [loopNum, isDeleting, text, delta, period, toRotate]);
+
+  useEffect(() => {
+    const ticker = setInterval(() => {
+      tick();
+    }, delta);
+
+    return () => { clearInterval(ticker) };
+  }, [text, delta, tick]);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-20 px-6">

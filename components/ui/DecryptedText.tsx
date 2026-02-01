@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 
 interface DecryptedTextProps {
   text: string;
@@ -13,24 +13,7 @@ const DecryptedText: React.FC<DecryptedTextProps> = ({ text, className = '', ani
   const elementRef = useRef<HTMLSpanElement>(null);
   const hasAnimated = useRef(false);
 
-  useEffect(() => {
-    if (!animateOnView) return;
-    
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && !hasAnimated.current) {
-          hasAnimated.current = true;
-          startScramble();
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (elementRef.current) observer.observe(elementRef.current);
-    return () => observer.disconnect();
-  }, [animateOnView]);
-
-  const startScramble = () => {
+  const startScramble = useCallback(() => {
     let iteration = 0;
     const interval = setInterval(() => {
       setDisplayText(
@@ -51,7 +34,24 @@ const DecryptedText: React.FC<DecryptedTextProps> = ({ text, className = '', ani
 
       iteration += 1 / 3;
     }, 30);
-  };
+  }, [text]);
+
+  useEffect(() => {
+    if (!animateOnView) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !hasAnimated.current) {
+          hasAnimated.current = true;
+          startScramble();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (elementRef.current) observer.observe(elementRef.current);
+    return () => observer.disconnect();
+  }, [animateOnView, startScramble]);
 
   return (
     <span 

@@ -1,4 +1,4 @@
-import { Project, Skill, Experience, SocialLink, Service, Testimonial } from '../types';
+import { Project, Skill, Experience, SocialLink, Service } from '../types';
 
 export const RESUME_DATA = {
   name: "Aditya Nadamuni",
@@ -115,31 +115,7 @@ export const EXPERIENCE: Experience[] = [
 ];
 
 export const SOCIALS: SocialLink[] = [
-  { platform: "GitHub", url: "https://github.com/", icon: "github" },
-  { platform: "LinkedIn", url: "https://www.linkedin.com/", icon: "linkedin" },
-  { platform: "Twitter", url: "https://twitter.com", icon: "twitter" },
-];
-
-export const TESTIMONIALS: Testimonial[] = [
-  {
-    id: "1",
-    name: "Sarah Johnson",
-    role: "Product Manager at TechFlow",
-    text: "Aditya is a phenomenal developer. He transformed our vague requirements into a robust, scalable application faster than we anticipated. His attention to detail is unmatched.",
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150&h=150"
-  },
-  {
-    id: "2",
-    name: "Michael Chen",
-    role: "CTO at InnovateX",
-    text: "Working with Aditya was a breeze. He has a deep understanding of both frontend nuances and backend architecture. The microservices system he built for us is still running flawlessly.",
-    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=150&h=150"
-  },
-  {
-    id: "3",
-    name: "Emily Davis",
-    role: "Lead Designer at CreativeStudio",
-    text: "It's rare to find a developer who cares about design as much as the code. Aditya implemented our designs with pixel-perfect precision and added smooth animations that delighted our users.",
-    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=150&h=150"
-  }
+  { platform: "GitHub", url: "https://github.com/theadityanvs", icon: "github" },
+  { platform: "LinkedIn", url: "https://www.linkedin.com/in/theadityanvs", icon: "linkedin" },
+  { platform: "Twitter", url: "https://x.com/theadityanvs", icon: "twitter" },
 ];

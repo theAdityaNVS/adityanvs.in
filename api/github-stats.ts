@@ -66,7 +66,11 @@ export default async function handler(req: any, res: any) {
       return res.status(200).send(minimal);
     }
   } catch (err: any) {
-    console.error('github-stats proxy error:', err);
+    // Log error for debugging (only visible in non-production by default)
+    // Avoid leaking internal details to clients
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const { error: logError } = require('../utils/logger');
+    logError('github-stats proxy error:', err);
     return res.status(500).send('Internal Server Error');
   }
 }

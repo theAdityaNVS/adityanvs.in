@@ -1,5 +1,6 @@
 import { GoogleGenAI } from "@google/genai";
 import { RESUME_DATA, SKILLS, PROJECTS, EXPERIENCE } from '../data/constants';
+import { debug, error as logError } from '../utils/logger';
 
 declare const process: { env: { API_KEY: string } };
 
@@ -45,7 +46,7 @@ export const sendMessageToGemini = async (history: { role: 'user' | 'model'; tex
   // Simple caching strategy: If exact message was asked before, return cached response
   // This saves API tokens and improves speed for common questions
   if (responseCache.has(cacheKey)) {
-    console.log("Serving from cache:", cacheKey);
+    debug('Serving from cache:', cacheKey);
     return responseCache.get(cacheKey)!;
   }
 
@@ -69,7 +70,7 @@ export const sendMessageToGemini = async (history: { role: 'user' | 'model'; tex
     
     return responseText;
   } catch (error) {
-    console.error("Gemini API Error:", error);
+    logError('Gemini API Error:', error);
     throw error;
   }
 };

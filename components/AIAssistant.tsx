@@ -57,7 +57,10 @@ const AIAssistant: React.FC = () => {
       
       setMessages(prev => [...prev, aiMsg]);
     } catch (error) {
-      console.error("AI Error:", error);
+      // Use logger to keep output consistent and toggleable
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const { error: logError } = require('../utils/logger');
+      logError('AI Error:', error);
       setHasError(true);
       const errorMsg: Message = {
         id: (Date.now() + 1).toString(),

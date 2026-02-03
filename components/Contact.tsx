@@ -33,8 +33,20 @@ const Contact: React.FC = () => {
     return true;
   };
 
+  // Validation & Sanitization
+  const isValidEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const sanitizeInput = (text: string) => {
+    // Basic sanitization to strip potential HTML tags (SQL injection is handled by Supabase)
+    return text.replace(/[<>]/g, '').trim();
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("Form submission started");
     setError(null);
     setSuccess(false);
 
@@ -47,13 +59,19 @@ const Contact: React.FC = () => {
 
     // 2. Client-Side Rate Limit (IP limit requires backend)
     if (!checkRateLimit()) {
+      console.warn("Rate limit hit");
       setError("You've already sent a message recently. Please try again later.");
       return;
     }
 
     // 3. Validation
-    if (!formData.name || !formData.email || !formData.message) {
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
       setError("Please fill in all fields.");
+      return;
+    }
+
+    if (!isValidEmail(formData.email)) {
+      setError("Please enter a valid email address.");
       return;
     }
 
@@ -61,14 +79,19 @@ const Contact: React.FC = () => {
 
     try {
       // 4. Send to Supabase
+      if (!supabase) {
+        throw new Error("Supabase client not initialized. Check environment variables.");
+      }
+
       // Ensure you have a table named 'messages' in your Supabase project
+      // Supabase handles Parameterized Queries automatically, preventing SQL Injection
       const { error: supabaseError } = await supabase
         .from('messages')
         .insert([
           {
-            name: formData.name,
-            email: formData.email,
-            message: formData.message,
+            name: sanitizeInput(formData.name),
+            email: formData.email.trim().toLowerCase(), // normalize email
+            message: sanitizeInput(formData.message),
             created_at: new Date().toISOString()
           }
         ]);
@@ -212,6 +235,7 @@ const Contact: React.FC = () => {
             <button
               type="submit"
               disabled={loading}
+              onClick={() => console.log('Submit button clicked')}
               className="w-full bg-gradient-to-r from-primary to-secondary text-white font-bold py-4 rounded-lg hover:opacity-90 transition-opacity disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {loading ? (
@@ -223,6 +247,12 @@ const Contact: React.FC = () => {
                 'Send Message'
               )}
             </button>
+
+            {/* Debug Info (Only shows if there are issues) */}
+            <div className="mt-4 text-xs font-mono text-slate-500 text-center">
+              <p>Status: {loading ? 'Sending...' : 'Idle'}</p>
+              {!supabase && <p className="text-red-500">Supabase: Not Configured (Missing Keys)</p>}
+            </div>
           </form>
 
         </div>

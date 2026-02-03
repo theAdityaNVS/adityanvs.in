@@ -2,7 +2,7 @@ import { GoogleGenAI } from "@google/genai";
 import { RESUME_DATA, SKILLS, PROJECTS, EXPERIENCE } from '../data/constants';
 import { debug, error as logError } from '../utils/logger';
 
-declare const process: { env: { API_KEY: string } };
+
 
 // Construct a system prompt based on the static data
 const SYSTEM_INSTRUCTION = `
@@ -34,7 +34,12 @@ const responseCache = new Map<string, string>();
 
 export const initGemini = () => {
   if (!aiClient) {
-    aiClient = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+    if (!apiKey) {
+      console.warn("VITE_GEMINI_API_KEY is missing!");
+    }
+    // Using simple constructor if supported or fallback to standard init
+    aiClient = new GoogleGenAI({ apiKey: apiKey || '' });
   }
   return aiClient;
 };
@@ -64,10 +69,10 @@ export const sendMessageToGemini = async (history: { role: 'user' | 'model'; tex
 
     const result = await chat.sendMessage({ message: newMessage });
     const responseText = result.text || "I'm having trouble thinking right now.";
-    
+
     // Store in cache
     responseCache.set(cacheKey, responseText);
-    
+
     return responseText;
   } catch (error) {
     logError('Gemini API Error:', error);

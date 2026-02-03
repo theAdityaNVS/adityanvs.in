@@ -1,8 +1,8 @@
 import { createClient } from '@supabase/supabase-js';
 
-// These environment variables need to be set in your .env file
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+// Check for VITE_ prefix (local/manual) or NEXT_PUBLIC_ prefix (Vercel Integration)
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || import.meta.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || import.meta.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 if (!supabaseUrl || !supabaseAnonKey) {
     console.warn('Supabase credentials missing! Check your .env file or Vercel Environment Variables.');

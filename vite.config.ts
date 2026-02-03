@@ -8,6 +8,8 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, '.', '');
   return {
     plugins: [react()],
+    // Support Vercel's default Next.js-style env vars
+    envPrefix: ['VITE_', 'NEXT_PUBLIC_'],
     define: {
       // Polyfill process.env.API_KEY for the browser
       'process.env.API_KEY': JSON.stringify(env.API_KEY || env.VITE_API_KEY)

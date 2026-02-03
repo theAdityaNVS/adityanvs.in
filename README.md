@@ -27,3 +27,4 @@ A futuristic, AI-powered developer portfolio built with React, TypeScript, and T
 ## Getting Started
 
 See `docs/01-setup.md` for installation instructions.
+See `docs/deployment.md` for Vercel & Supabase configuration.

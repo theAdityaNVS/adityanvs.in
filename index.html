@@ -1,238 +1,265 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aditya Nadamuni | adityanvs.in</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ['Outfit', 'sans-serif'],
-              display: ['Space Grotesk', 'sans-serif'],
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aditya Nadamuni | adityanvs.in</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Outfit', 'sans-serif'],
+            display: ['Space Grotesk', 'sans-serif'],
+          },
+          colors: {
+            primary: '#6366f1', // Indigo 500
+            secondary: '#ec4899', // Pink 500
+            accent: '#06b6d4', // Cyan 500
+            dark: '#0f172a', // Slate 900
+            darker: '#020617', // Slate 950
+          },
+          borderRadius: {
+            '4xl': '2rem',
+            '5xl': '2.5rem',
+          },
+          animation: {
+            'blob': 'blob 10s infinite',
+            'float': 'float 6s ease-in-out infinite',
+            'shine': 'shine 8s linear infinite',
+            'fly': 'fly 15s linear infinite',
+            'scan': 'scan 8s linear infinite',
+            'grid-move': 'grid-move 20s linear infinite',
+          },
+          keyframes: {
+            blob: {
+              '0%': { transform: 'translate(0px, 0px) scale(1)' },
+              '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+              '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+              '100%': { transform: 'translate(0px, 0px) scale(1)' },
             },
-            colors: {
-              primary: '#6366f1', // Indigo 500
-              secondary: '#ec4899', // Pink 500
-              accent: '#06b6d4', // Cyan 500
-              dark: '#0f172a', // Slate 900
-              darker: '#020617', // Slate 950
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-20px)' },
             },
-            borderRadius: {
-              '4xl': '2rem',
-              '5xl': '2.5rem',
+            shine: {
+              '0%': { backgroundPosition: '200% center' },
+              '100%': { backgroundPosition: '-200% center' },
             },
-            animation: {
-              'blob': 'blob 10s infinite',
-              'float': 'float 6s ease-in-out infinite',
-              'shine': 'shine 8s linear infinite',
-              'fly': 'fly 15s linear infinite',
-              'scan': 'scan 8s linear infinite',
-              'grid-move': 'grid-move 20s linear infinite',
+            fly: {
+              '0%': { top: '100%', opacity: '0', transform: 'scale(0.5) translateX(0)' },
+              '10%': { opacity: '0.4', transform: 'scale(0.8) translateX(10px)' },
+              '50%': { transform: 'scale(1) translateX(-10px)' },
+              '90%': { opacity: '0.4', transform: 'scale(1.1) translateX(10px)' },
+              '100%': { top: '-20%', opacity: '0', transform: 'scale(1.2) translateX(0)' },
             },
-            keyframes: {
-              blob: {
-                '0%': { transform: 'translate(0px, 0px) scale(1)' },
-                '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
-                '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
-                '100%': { transform: 'translate(0px, 0px) scale(1)' },
-              },
-              float: {
-                '0%, 100%': { transform: 'translateY(0)' },
-                '50%': { transform: 'translateY(-20px)' },
-              },
-              shine: {
-                '0%': { backgroundPosition: '200% center' },
-                '100%': { backgroundPosition: '-200% center' },
-              },
-              fly: {
-                '0%': { top: '100%', opacity: '0', transform: 'scale(0.5) translateX(0)' },
-                '10%': { opacity: '0.4', transform: 'scale(0.8) translateX(10px)' },
-                '50%': { transform: 'scale(1) translateX(-10px)' },
-                '90%': { opacity: '0.4', transform: 'scale(1.1) translateX(10px)' },
-                '100%': { top: '-20%', opacity: '0', transform: 'scale(1.2) translateX(0)' },
-              },
-              scan: {
-                '0%': { top: '-20%' },
-                '100%': { top: '120%' },
-              },
-              'grid-move': {
-                '0%': { backgroundPosition: '0 0' },
-                '100%': { backgroundPosition: '50px 50px' },
-              }
+            scan: {
+              '0%': { top: '-20%' },
+              '100%': { top: '120%' },
+            },
+            'grid-move': {
+              '0%': { backgroundPosition: '0 0' },
+              '100%': { backgroundPosition: '50px 50px' },
             }
           }
         }
       }
-    </script>
-    <style>
-      body {
-        /* Removed background-color from body to prevent z-index issues. 
+    }
+  </script>
+  <style>
+    body {
+      /* Removed background-color from body to prevent z-index issues. 
            It is now handled by .bg-base */
-        color: #f8fafc;
-        overflow-x: hidden;
-        margin: 0;
-        padding: 0;
-      }
-      
-      /* 1. Base Dark Background */
-      .bg-base {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background-color: #020617; /* Slate 950 */
-        z-index: -10;
-      }
+      color: #f8fafc;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
 
-      /* 2. Cyber Grid Background */
-      .cyber-grid {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        z-index: -5; /* Clearly above base, below content */
-        
-        /* Cyan Grid Lines for High Visibility */
-        background-image: 
-          linear-gradient(to right, rgba(6, 182, 212, 0.15) 1px, transparent 1px),
-          linear-gradient(to bottom, rgba(6, 182, 212, 0.15) 1px, transparent 1px);
-        background-size: 50px 50px;
-        
-        /* Subtle movement to show it's "alive" */
-        animation: grid-move 20s linear infinite;
-        pointer-events: none;
-      }
+    /* 1. Base Dark Background */
+    .bg-base {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #020617;
+      /* Slate 950 */
+      z-index: -10;
+    }
 
-      /* Glowing Scanline Effect */
-      .cyber-grid::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        width: 100%;
-        height: 150px; 
-        background: linear-gradient(
-          to bottom, 
-          transparent, 
-          rgba(6, 182, 212, 0.2) 50%, 
-          transparent
-        );
-        animation: scan 8s linear infinite;
-        filter: blur(4px);
-        opacity: 0.7;
-      }
+    /* 2. Cyber Grid Background */
+    .cyber-grid {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -5;
+      /* Clearly above base, below content */
 
-      /* 3. Liquid/Glow Effects */
-      .liquid-bg {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        z-index: -4;
-        overflow: hidden;
-        pointer-events: none;
-      }
-      
-      /* Apple-style Glass Panel */
-      .glass-panel {
-        background: rgba(30, 41, 59, 0.4);
-        backdrop-filter: blur(24px) saturate(140%);
-        -webkit-backdrop-filter: blur(24px) saturate(140%);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        box-shadow: 
-          0 4px 6px -1px rgba(0, 0, 0, 0.1), 
-          0 2px 4px -1px rgba(0, 0, 0, 0.06),
-          inset 0 0 20px rgba(255, 255, 255, 0.02);
-        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-      
-      .glass-panel:hover {
-        background: rgba(30, 41, 59, 0.6);
-        border-color: rgba(255, 255, 255, 0.2);
-        box-shadow: 
-          0 20px 25px -5px rgba(0, 0, 0, 0.1), 
-          0 10px 10px -5px rgba(0, 0, 0, 0.04),
-          inset 0 0 30px rgba(255, 255, 255, 0.05);
-        transform: translateY(-5px);
-      }
+      /* Cyan Grid Lines for High Visibility */
+      background-image:
+        linear-gradient(to right, rgba(6, 182, 212, 0.15) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(6, 182, 212, 0.15) 1px, transparent 1px);
+      background-size: 50px 50px;
 
-      /* Gel Effect for Navbar */
-      .glass-gel {
-        background: rgba(2, 6, 23, 0.75);
-        backdrop-filter: blur(20px) saturate(180%);
-        -webkit-backdrop-filter: blur(20px) saturate(180%);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        box-shadow: 
-          0 8px 32px 0 rgba(0, 0, 0, 0.37),
-          inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
-      }
+      /* Subtle movement to show it's "alive" */
+      animation: grid-move 20s linear infinite;
+      pointer-events: none;
+    }
 
-      /* Refraction/Shine Effect */
-      .refraction-shine {
-        position: relative;
-        overflow: hidden;
-      }
-      .refraction-shine::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 50%;
-        height: 100%;
-        background: linear-gradient(
-          to right,
+    /* Glowing Scanline Effect */
+    .cyber-grid::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 150px;
+      background: linear-gradient(to bottom,
+          transparent,
+          rgba(6, 182, 212, 0.2) 50%,
+          transparent);
+      animation: scan 8s linear infinite;
+      filter: blur(4px);
+      opacity: 0.7;
+    }
+
+    /* 3. Liquid/Glow Effects */
+    .liquid-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -4;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    /* Apple-style Glass Panel */
+    .glass-panel {
+      background: rgba(30, 41, 59, 0.4);
+      backdrop-filter: blur(24px) saturate(140%);
+      -webkit-backdrop-filter: blur(24px) saturate(140%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow:
+        0 4px 6px -1px rgba(0, 0, 0, 0.1),
+        0 2px 4px -1px rgba(0, 0, 0, 0.06),
+        inset 0 0 20px rgba(255, 255, 255, 0.02);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .glass-panel:hover {
+      background: rgba(30, 41, 59, 0.6);
+      border-color: rgba(255, 255, 255, 0.2);
+      box-shadow:
+        0 20px 25px -5px rgba(0, 0, 0, 0.1),
+        0 10px 10px -5px rgba(0, 0, 0, 0.04),
+        inset 0 0 30px rgba(255, 255, 255, 0.05);
+      transform: translateY(-5px);
+    }
+
+    /* Gel Effect for Navbar */
+    .glass-gel {
+      background: rgba(2, 6, 23, 0.75);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow:
+        0 8px 32px 0 rgba(0, 0, 0, 0.37),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+    }
+
+    /* Refraction/Shine Effect */
+    .refraction-shine {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .refraction-shine::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(to right,
           transparent,
           rgba(255, 255, 255, 0.1) 50%,
-          transparent
-        );
-        transform: skewX(-25deg);
-        transition: 0.5s;
-        pointer-events: none;
-      }
-      .refraction-shine:hover::before {
-        left: 200%;
-        transition: 0.7s ease-in-out;
-      }
+          transparent);
+      transform: skewX(-25deg);
+      transition: 0.5s;
+      pointer-events: none;
+    }
 
-      /* Scroll Reveal Animations - Bouncy Effect */
-      .reveal {
-        opacity: 0;
-        transform: translateY(40px) scale(0.95);
-        transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      }
-      .reveal.active {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-      
-      /* 3D Transform Utility */
-      .transform-style-3d {
-        transform-style: preserve-3d;
-      }
+    .refraction-shine:hover::before {
+      left: 200%;
+      transition: 0.7s ease-in-out;
+    }
 
-      /* Custom scrollbar */
-      ::-webkit-scrollbar {
-        width: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #0f172a;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #334155;
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #475569;
-      }
-    </style>
+    /* Scroll Reveal Animations - Bouncy Effect */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px) scale(0.95);
+      transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* 3D Transform Utility */
+    .transform-style-3d {
+      transform-style: preserve-3d;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
+
+    /* Mobile Touch Optimization */
+    .active\:scale-98:active {
+      transform: scale(0.98);
+    }
+
+    .active\:scale-95:active {
+      transform: scale(0.95);
+    }
+
+    /* Ensure buttons are always tappable on mobile */
+    button {
+      -webkit-tap-highlight-color: rgba(99, 102, 241, 0.3);
+      cursor: pointer;
+    }
+
+    /* Prevent form overlay issues */
+    form {
+      isolation: isolate;
+    }
+  </style>
   <script type="importmap">
 {
   "imports": {
@@ -247,24 +274,32 @@
 }
 </script>
 </head>
-  <body>
-    <!-- Layer 1: Solid Base -->
-    <div class="bg-base"></div>
-    
-    <!-- Layer 2: The Grid -->
-    <div class="cyber-grid"></div>
-    
-    <!-- Layer 3: Glows/Blobs -->
-    <div class="liquid-bg">
-      <div class="absolute top-0 left-0 w-[50vw] h-[50vh] bg-primary/20 rounded-full blur-[120px] mix-blend-screen animate-blob"></div>
-      <div class="absolute bottom-0 right-0 w-[50vw] h-[50vh] bg-secondary/20 rounded-full blur-[120px] mix-blend-screen animate-blob animation-delay-2000"></div>
-      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40vw] h-[40vh] bg-accent/20 rounded-full blur-[100px] mix-blend-screen animate-pulse"></div>
+
+<body>
+  <!-- Layer 1: Solid Base -->
+  <div class="bg-base"></div>
+
+  <!-- Layer 2: The Grid -->
+  <div class="cyber-grid"></div>
+
+  <!-- Layer 3: Glows/Blobs -->
+  <div class="liquid-bg">
+    <div
+      class="absolute top-0 left-0 w-[50vw] h-[50vh] bg-primary/20 rounded-full blur-[120px] mix-blend-screen animate-blob">
     </div>
+    <div
+      class="absolute bottom-0 right-0 w-[50vw] h-[50vh] bg-secondary/20 rounded-full blur-[120px] mix-blend-screen animate-blob animation-delay-2000">
+    </div>
+    <div
+      class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40vw] h-[40vh] bg-accent/20 rounded-full blur-[100px] mix-blend-screen animate-pulse">
+    </div>
+  </div>
 
-    <!-- Layer 4: Content -->
-    <div id="root"></div>
+  <!-- Layer 4: Content -->
+  <div id="root"></div>
 
-    <!-- Entry Point for Vite -->
-    <script type="module" src="/index.tsx"></script>
-  </body>
+  <!-- Entry Point for Vite -->
+  <script type="module" src="/index.tsx"></script>
+</body>
+
 </html>

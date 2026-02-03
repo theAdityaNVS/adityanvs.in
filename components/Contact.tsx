@@ -167,22 +167,23 @@ const Contact: React.FC = () => {
             </div>
           </div>
 
-          <form className="bg-slate-900 p-8 rounded-3xl border border-white/5 shadow-xl relative overflow-hidden" onSubmit={handleSubmit}>
+          <form className="bg-slate-900 p-8 rounded-3xl border border-white/5 shadow-xl relative overflow-hidden touch-auto" onSubmit={handleSubmit}>
             {/* Success Overlay */}
             {success && (
-              <div className="absolute inset-0 bg-slate-900/95 flex flex-col items-center justify-center z-10 text-center p-6 animate-in fade-in duration-300">
+              <div className="absolute inset-0 bg-slate-900/95 flex flex-col items-center justify-center z-50 text-center p-6 animate-in fade-in duration-300 pointer-events-auto">
                 <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mb-4 text-green-500">
                   <Send size={32} />
                 </div>
                 <h3 className="text-2xl font-bold text-white mb-2">Message Sent!</h3>
                 <p className="text-slate-400 mb-4">Thanks for reaching out. I&apos;ll get back to you shortly.</p>
                 <button
+                  type="button"
                   onClick={() => {
                     console.log('Dismissing success overlay');
                     setSuccess(false);
                     sessionStorage.removeItem('contact_form_submitted');
                   }}
-                  className="mt-4 px-6 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-lg transition-colors text-sm"
+                  className="mt-4 px-6 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-lg transition-colors text-sm touch-manipulation active:scale-95"
                 >
                   Send Another Message
                 </button>
@@ -252,7 +253,7 @@ const Contact: React.FC = () => {
                 console.log('Submit button CLICKED!', { loading, success, disabled: loading });
                 console.log('Event:', e);
               }}
-              className="w-full bg-gradient-to-r from-primary to-secondary text-white font-bold py-4 rounded-lg hover:opacity-90 transition-opacity disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full bg-gradient-to-r from-primary to-secondary text-white font-bold py-4 rounded-lg hover:opacity-90 transition-opacity disabled:cursor-not-allowed disabled:opacity-50 flex items-center justify-center gap-2 touch-manipulation active:scale-98 relative z-0"
             >
               {loading ? (
                 <>

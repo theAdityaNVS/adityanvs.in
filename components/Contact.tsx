@@ -7,9 +7,14 @@ import { supabase } from '../utils/supabase';
 const Contact: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(() => {
-    return sessionStorage.getItem('contact_form_submitted') === 'true';
+    const isSubmitted = sessionStorage.getItem('contact_form_submitted') === 'true';
+    console.log('Contact form initial state - success:', isSubmitted);
+    return isSubmitted;
   });
   const [error, setError] = useState<string | null>(null);
+
+  // Debug: Log when component renders
+  console.log('Contact component rendered. Success:', success, 'Loading:', loading, 'Supabase:', !!supabase);
 
   // Form State
   const [formData, setFormData] = useState({
@@ -170,7 +175,17 @@ const Contact: React.FC = () => {
                   <Send size={32} />
                 </div>
                 <h3 className="text-2xl font-bold text-white mb-2">Message Sent!</h3>
-                <p className="text-slate-400">Thanks for reaching out. I&apos;ll get back to you shortly.</p>
+                <p className="text-slate-400 mb-4">Thanks for reaching out. I&apos;ll get back to you shortly.</p>
+                <button
+                  onClick={() => {
+                    console.log('Dismissing success overlay');
+                    setSuccess(false);
+                    sessionStorage.removeItem('contact_form_submitted');
+                  }}
+                  className="mt-4 px-6 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-lg transition-colors text-sm"
+                >
+                  Send Another Message
+                </button>
               </div>
             )}
 
@@ -233,7 +248,10 @@ const Contact: React.FC = () => {
             <button
               type="submit"
               disabled={loading}
-              onClick={() => console.log('Submit button clicked')}
+              onClick={(e) => {
+                console.log('Submit button CLICKED!', { loading, success, disabled: loading });
+                console.log('Event:', e);
+              }}
               className="w-full bg-gradient-to-r from-primary to-secondary text-white font-bold py-4 rounded-lg hover:opacity-90 transition-opacity disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {loading ? (

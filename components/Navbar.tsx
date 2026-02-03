@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { Menu, X, Terminal, Star } from 'lucide-react';
+
 import MagneticWrapper from './ui/MagneticWrapper';
 
 const Navbar: React.FC = () => {
@@ -24,15 +26,14 @@ const Navbar: React.FC = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 flex justify-center transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-        isScrolled ? 'pt-4' : 'pt-8'
-      }`}
+      className={`fixed top-0 left-0 right-0 z-[500] flex justify-center transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${isScrolled ? 'pt-4' : 'pt-8'
+        }`}
     >
       <div
         className={`
           relative flex items-center justify-between transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]
-          ${isScrolled 
-            ? 'glass-gel w-[90%] md:w-auto md:min-w-[600px] rounded-full px-6 py-3' 
+          ${isScrolled
+            ? 'glass-gel w-[90%] md:w-auto md:min-w-[600px] rounded-full px-6 py-3'
             : 'w-full max-w-7xl px-6 py-4 bg-transparent'
           }
         `}
@@ -40,10 +41,10 @@ const Navbar: React.FC = () => {
         {/* Logo */}
         <a href="#about" className="flex items-center gap-2 group">
           <div className={`p-1.5 rounded-lg transition-colors ${isScrolled ? 'bg-primary/20 text-primary' : 'bg-white/10 text-white'}`}>
-             <Terminal className="h-5 w-5" />
+            <Terminal className="h-5 w-5" />
           </div>
           <span className={`font-display font-bold tracking-tight transition-all duration-300 ${isScrolled ? 'text-lg text-white' : 'text-xl md:text-2xl text-white'}`}>
-            ADITYA<span className="text-primary">.DEV</span>
+            ADITYA<span className="text-primary">.NVS</span>
           </span>
         </a>
 
@@ -61,22 +62,22 @@ const Navbar: React.FC = () => {
                 <span className="relative z-10">{link.name}</span>
                 {/* Subtle hover shine for links */}
                 {!isScrolled && (
-                   <span className="absolute bottom-0 left-0 w-full h-0.5 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
                 )}
               </a>
             </MagneticWrapper>
           ))}
-          
+
           <div className={`w-px h-6 mx-2 ${isScrolled ? 'bg-white/10' : 'bg-white/20'}`}></div>
 
           {/* Note: The old 'Ask AI' button is removed from here since it's now a floating button */}
           <MagneticWrapper>
             <a href="https://github.com/theAdityaNVS" target="_blank" rel="noopener noreferrer" className={`
                 flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300
-                ${isScrolled 
-                  ? 'bg-primary text-white hover:bg-primary/90 shadow-[0_0_15px_rgba(99,102,241,0.4)]' 
-                  : 'bg-white/10 text-white hover:bg-white/20 border border-white/10 backdrop-blur-sm'
-                }
+                ${isScrolled
+                ? 'bg-primary text-white hover:bg-primary/90 shadow-[0_0_15px_rgba(99,102,241,0.4)]'
+                : 'bg-white/10 text-white hover:bg-white/20 border border-white/10 backdrop-blur-sm'
+              }
               `}
             >
               GitHub
@@ -101,11 +102,14 @@ const Navbar: React.FC = () => {
       </div>
 
       {/* Mobile Nav Overlay */}
-      <div 
-        className={`fixed inset-0 z-40 bg-darker/95 backdrop-blur-2xl md:hidden flex flex-col items-center justify-center space-y-8 transition-all duration-500 ease-in-out ${
-            isMobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full pointer-events-none'
-        }`}
-      >
+      {/* Mobile Nav Overlay - Moved to Portal */}
+      {createPortal(
+        <div
+          className={`fixed inset-0 z-[490] bg-darker/95 backdrop-blur-2xl md:hidden flex flex-col items-center justify-center space-y-8 transition-all duration-500 ease-in-out ${isMobileMenuOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-full pointer-events-none'
+            }`}
+        >
+
+
           {navLinks.map((link, idx) => (
             <a
               key={link.name}
@@ -117,7 +121,29 @@ const Navbar: React.FC = () => {
               {link.name}
             </a>
           ))}
-      </div>
+
+          {/* Social Icons for Mobile */}
+          <div className={`flex items-center gap-6 mt-8 transition-all duration-500 transform ${isMobileMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`} style={{ transitionDelay: '300ms' }}>
+            <a
+              href="https://github.com/theAdityaNVS"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-6 py-3 rounded-full bg-white/10 text-white font-semibold text-lg hover:bg-primary hover:text-white transition-all duration-300"
+            >
+              <Terminal size={20} />
+              GitHub
+            </a>
+            <a
+              href="#github"
+              className="p-3 rounded-full bg-white/10 text-white hover:bg-white/20 transition-all duration-300"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              <Star size={24} />
+            </a>
+          </div>
+        </div>,
+        document.body
+      )}
     </nav>
   );
 };

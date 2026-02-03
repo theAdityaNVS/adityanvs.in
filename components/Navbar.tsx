@@ -7,6 +7,7 @@ import MagneticWrapper from './ui/MagneticWrapper';
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isContactSubmitted, setIsContactSubmitted] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,12 +17,26 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    const checkSubmission = () => {
+      setIsContactSubmitted(sessionStorage.getItem('contact_form_submitted') === 'true');
+    };
+
+    // Check initially
+    checkSubmission();
+
+    // Listen for the custom event from Contact.tsx
+    window.addEventListener('contactFormSubmitted', checkSubmission);
+
+    return () => window.removeEventListener('contactFormSubmitted', checkSubmission);
+  }, []);
+
   const navLinks = [
     { name: 'About', href: '#about' },
     { name: 'Services', href: '#skills' },
     { name: 'Experience', href: '#experience' },
     { name: 'Projects', href: '#projects' },
-    { name: 'Contact', href: '#contact' },
+    { name: isContactSubmitted ? 'Message Sent ✓' : 'Contact', href: '#contact' },
   ];
 
   return (
@@ -52,19 +67,28 @@ const Navbar: React.FC = () => {
         <div className="hidden md:flex items-center gap-1">
           {navLinks.map((link) => (
             <MagneticWrapper key={link.name}>
-              <a
-                href={link.href}
-                className={`
+              {link.name.includes('Message Sent') ? (
+                <span className={`
+                  px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 relative overflow-hidden group block cursor-default
+                  ${isScrolled ? 'text-green-400 bg-white/5' : 'text-green-400'}
+                `}>
+                  {link.name}
+                </span>
+              ) : (
+                <a
+                  href={link.href}
+                  className={`
                   px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 relative overflow-hidden group block
                   ${isScrolled ? 'text-slate-300 hover:text-white hover:bg-white/10' : 'text-slate-300 hover:text-white'}
                 `}
-              >
-                <span className="relative z-10">{link.name}</span>
-                {/* Subtle hover shine for links */}
-                {!isScrolled && (
-                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-                )}
-              </a>
+                >
+                  <span className="relative z-10">{link.name}</span>
+                  {/* Subtle hover shine for links */}
+                  {!isScrolled && (
+                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+                  )}
+                </a>
+              )}
             </MagneticWrapper>
           ))}
 

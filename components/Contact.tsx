@@ -6,7 +6,9 @@ import { supabase } from '../utils/supabase';
 
 const Contact: React.FC = () => {
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
+  const [success, setSuccess] = useState(() => {
+    return sessionStorage.getItem('contact_form_submitted') === 'true';
+  });
   const [error, setError] = useState<string | null>(null);
 
   // Form State
@@ -102,6 +104,9 @@ const Contact: React.FC = () => {
       setSuccess(true);
       setFormData({ name: '', email: '', message: '', honeypot: '' });
       localStorage.setItem('last_submission_time', Date.now().toString());
+      sessionStorage.setItem('contact_form_submitted', 'true');
+      // Dispatch event for Navbar to pick up
+      window.dispatchEvent(new Event("contactFormSubmitted"));
 
     } catch (err) {
       console.error('Submission error:', err);
@@ -166,13 +171,6 @@ const Contact: React.FC = () => {
                 </div>
                 <h3 className="text-2xl font-bold text-white mb-2">Message Sent!</h3>
                 <p className="text-slate-400">Thanks for reaching out. I&apos;ll get back to you shortly.</p>
-                <button
-                  type="button"
-                  onClick={() => setSuccess(false)}
-                  className="mt-6 px-6 py-2 bg-slate-800 text-white rounded-full hover:bg-slate-700 transition-colors"
-                >
-                  Send Another
-                </button>
               </div>
             )}
 

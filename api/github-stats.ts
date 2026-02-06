@@ -12,7 +12,7 @@ export default async function handler(req: Req, res: Res) {
     const username = String(req.query?.username || 'theAdityaNVS');
     const kind = String(req.query?.kind || 'stats'); // 'stats' or 'langs'
 
-    const selfHostedBase = 'https://github-readme-stats-theadityanvs-projects.vercel.app';
+    const selfHostedBase = 'https://github--stats.vercel.app';
     const publicBase = 'https://github-readme-stats.vercel.app';
 
     const endpoints: Record<string, string[]> = {
@@ -24,7 +24,7 @@ export default async function handler(req: Req, res: Res) {
         `${selfHostedBase}/api/top-langs/?username=${username}&theme=transparent&show_icons=true&hide_border=true&layout=compact`,
         `${publicBase}/api/top-langs/?username=${username}&theme=transparent&layout=compact&hide_border=true`,
       ],
-    }; 
+    };
 
     const candidates = endpoints[kind] || endpoints['stats'];
 

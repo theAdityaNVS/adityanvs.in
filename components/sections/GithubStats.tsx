@@ -10,7 +10,7 @@ const GithubStats: React.FC = () => {
   // Use local proxy that will try your self-hosted endpoint, then the public service, then local fallbacks
   const statsUrl = `/api/github-stats?username=${username}&kind=stats`;
 
-  const streakUrl = `https://github-readme-streak--stats.vercel.app?user=${username}&theme=transparent&hide_border=true&exclude_days=Sun%2CSat`;
+  const streakUrl = `https://github-readme-streak-stats.herokuapp.com?user=${username}&theme=transparent&hide_border=true&exclude_days=Sun%2CSat`;
 
   const langUrl = `/api/github-stats?username=${username}&kind=langs`
 

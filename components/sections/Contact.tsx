@@ -3,18 +3,19 @@ import { Mail, MapPin, Calendar, Loader2, Send } from 'lucide-react';
 import { RESUME_DATA } from '../../data/constants';
 import DecryptedText from '../ui/DecryptedText';
 import { supabase } from '../../utils/supabase';
+import { debug, warn, error } from '../../utils/logger';
 
 const Contact: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(() => {
     const isSubmitted = sessionStorage.getItem('contact_form_submitted') === 'true';
-    console.log('Contact form initial state - success:', isSubmitted);
+    debug('Contact form initial state - success:', isSubmitted);
     return isSubmitted;
   });
-  const [error, setError] = useState<string | null>(null);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   // Debug: Log when component renders
-  console.log('Contact component rendered. Success:', success, 'Loading:', loading, 'Supabase:', !!supabase);
+  debug('Contact component rendered. Success:', success, 'Loading:', loading, 'Supabase:', !!supabase);
 
   // Form State
   const [formData, setFormData] = useState({
@@ -53,8 +54,8 @@ const Contact: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submission started");
-    setError(null);
+    debug("Form submission started");
+    setSubmitError(null);
     setSuccess(false);
 
     // 1. Honeypot Check (Spam Bot Protection)
@@ -66,19 +67,19 @@ const Contact: React.FC = () => {
 
     // 2. Client-Side Rate Limit (IP limit requires backend)
     if (!checkRateLimit()) {
-      console.warn("Rate limit hit");
-      setError("You've already sent a message recently. Please try again later.");
+      warn("Rate limit hit");
+      setSubmitError("You've already sent a message recently. Please try again later.");
       return;
     }
 
     // 3. Validation
     if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
-      setError("Please fill in all fields.");
+      setSubmitError("Please fill in all fields.");
       return;
     }
 
     if (!isValidEmail(formData.email)) {
-      setError("Please enter a valid email address.");
+      setSubmitError("Please enter a valid email address.");
       return;
     }
 
@@ -114,8 +115,8 @@ const Contact: React.FC = () => {
       window.dispatchEvent(new Event("contactFormSubmitted"));
 
     } catch (err) {
-      console.error('Submission error:', err);
-      setError("Failed to send message. Please try again or email me directly.");
+      error('Submission error:', err);
+      setSubmitError("Failed to send message. Please try again or email me directly.");
     } finally {
       setLoading(false);
     }
@@ -179,7 +180,7 @@ const Contact: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => {
-                    console.log('Dismissing success overlay');
+                    debug('Dismissing success overlay');
                     setSuccess(false);
                     sessionStorage.removeItem('contact_form_submitted');
                   }}
@@ -240,9 +241,9 @@ const Contact: React.FC = () => {
               ></textarea>
             </div>
 
-            {error && (
+            {submitError && (
               <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg text-red-400 text-sm">
-                {error}
+                {submitError}
               </div>
             )}
 
@@ -250,8 +251,7 @@ const Contact: React.FC = () => {
               type="submit"
               disabled={loading}
               onClick={(e) => {
-                console.log('Submit button CLICKED!', { loading, success, disabled: loading });
-                console.log('Event:', e);
+                debug('Submit button CLICKED!', { loading, success, disabled: loading });
               }}
               className="w-full bg-gradient-to-r from-primary to-secondary text-white font-bold py-4 rounded-lg hover:opacity-90 transition-opacity disabled:cursor-not-allowed disabled:opacity-50 flex items-center justify-center gap-2 touch-manipulation active:scale-98 relative z-0"
             >
@@ -264,29 +264,12 @@ const Contact: React.FC = () => {
                 'Send Message'
               )}
             </button>
-
-            {/* Debug Info (Only shows if there are issues) */}
-            <div className="mt-4 text-xs font-mono text-slate-500 text-center">
-              <p>Status: {loading ? 'Sending...' : 'Idle'}</p>
-              {!supabase && <p className="text-red-500">Supabase: Not Configured (Missing Keys)</p>}
-            </div>
           </form>
 
         </div>
 
-        {/* Deployment Info Section */}
+        {/* Deployment Info Section - REMOVED, Keeping Copyright */}
         <div className="mt-20 pt-10 border-t border-white/5 text-center">
-          <p className="text-slate-500 text-sm mb-4">Deployment Strategy</p>
-          <div className="inline-flex items-center justify-center gap-8 flex-wrap">
-            <div className="flex items-center gap-2 px-4 py-2 bg-slate-900 rounded-full border border-white/10">
-              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-              <span className="text-slate-300 text-sm">GitHub Pages (Static)</span>
-            </div>
-            <div className="flex items-center gap-2 px-4 py-2 bg-slate-900 rounded-full border border-white/10 opacity-50">
-              <div className="w-2 h-2 bg-slate-500 rounded-full"></div>
-              <span className="text-slate-300 text-sm">Supabase (Backend)</span>
-            </div>
-          </div>
           <p className="text-slate-600 text-xs mt-4">
             &copy; {new Date().getFullYear()} {RESUME_DATA.name}. Built with React, Tailwind & Gemini AI.
           </p>

@@ -1,8 +1,8 @@
 import { createClient } from '@supabase/supabase-js';
 
-// Check for VITE_ prefix (local/manual) or NEXT_PUBLIC_ prefix (Vercel Integration)
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || import.meta.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || import.meta.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+// Check for SUPABASE_ prefix (user requested)
+const supabaseUrl = import.meta.env.SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.SUPABASE_ANON_KEY;
 
 // Validate that the URL is actually a URL and not a placeholder
 const isUrlValid = (url: string | undefined) => {

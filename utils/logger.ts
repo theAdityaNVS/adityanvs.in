@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-const isDebug = process.env.NODE_ENV !== 'production' || process.env.DEBUG === 'true';
+const isDebug = import.meta.env.DEV || import.meta.env.VITE_DEBUG === 'true';
 
 export const debug = (...args: unknown[]): void => {
   if (isDebug) console.debug('[debug]', ...args);

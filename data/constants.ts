@@ -5,8 +5,8 @@ export const RESUME_DATA = {
   title: "Java Full Stack Developer | Spring Boot & React Expert",
   bio: "Results-driven Java Full Stack Developer with 4+ years of hands-on experience at JP Morgan & TCS. Specializing in building scalable enterprise applications using Spring Boot, React, and microservices architecture. Multi-cloud certified (AWS, GCP, Azure) with a track record of optimizing system performance by up to 45% and enhancing data reliability.",
   location: "Hyderabad, Telangana, India",
-  email: "aditya.nadamuni@gmail.com",
-  availability: "Open to Opportunities",
+  email: "**********@mail.com", // Hidden for privacy
+  availability: "Available",
 };
 
 export const SERVICES: Service[] = [
@@ -35,7 +35,7 @@ export const PROJECTS: Project[] = [
     description: "A full-stack platform for developers to sell and monetize APIs. Built with Next.js 14, implementing Stripe Connect for payouts and Kong for API gateway management. Features real-time usage analytics.",
     tags: ["Next.js", "PostgreSQL", "Stripe", "Kong API", "Tailwind"],
     // Image: Abstract Network/Chip/Circuit
-    imageUrl: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800", 
+    imageUrl: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800",
     featured: true,
     githubUrl: "https://github.com/",
     demoUrl: "#"
@@ -96,7 +96,7 @@ export const EXPERIENCE: Experience[] = [
     description: "Authored 900+ MCQs demonstrating expertise in web development and cloud topics. Focused on Front-End Development and Cloud Computing content creation.",
     logo: "hackerearth"
   },
-   {
+  {
     id: "5",
     role: "Content Analyst Intern",
     company: "HackerEarth",
@@ -117,5 +117,4 @@ export const EXPERIENCE: Experience[] = [
 export const SOCIALS: SocialLink[] = [
   { platform: "GitHub", url: "https://github.com/theadityanvs", icon: "github" },
   { platform: "LinkedIn", url: "https://www.linkedin.com/in/theadityanvs", icon: "linkedin" },
-  { platform: "X", url: "https://x.com/theadityanvs", icon: "x" },
 ];

@@ -8,12 +8,14 @@ interface DecryptedTextProps {
 
 const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+';
 
-const DecryptedText: React.FC<DecryptedTextProps> = ({ text, className = '', animateOnView = true }) => {
+const DecryptedText: React.FC<DecryptedTextProps & { useGlitch?: boolean }> = ({ text, className = '', animateOnView = true, useGlitch = false }) => {
   const [displayText, setDisplayText] = useState(text);
   const elementRef = useRef<HTMLSpanElement>(null);
   const hasAnimated = useRef(false);
 
   const startScramble = useCallback(() => {
+    if (!useGlitch) return; // Only scramble if explicitly enabled
+
     let iteration = 0;
     const interval = setInterval(() => {
       setDisplayText(
@@ -34,10 +36,10 @@ const DecryptedText: React.FC<DecryptedTextProps> = ({ text, className = '', ani
 
       iteration += 1 / 3;
     }, 30);
-  }, [text]);
+  }, [text, useGlitch]);
 
   useEffect(() => {
-    if (!animateOnView) return;
+    if (!animateOnView || !useGlitch) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -51,13 +53,13 @@ const DecryptedText: React.FC<DecryptedTextProps> = ({ text, className = '', ani
 
     if (elementRef.current) observer.observe(elementRef.current);
     return () => observer.disconnect();
-  }, [animateOnView, startScramble]);
+  }, [animateOnView, useGlitch, startScramble]);
 
   return (
-    <span 
+    <span
       ref={elementRef}
-      className={`${className} inline-block cursor-default`}
-      onMouseEnter={() => startScramble()}
+      className={`${className} inline-block ${useGlitch ? 'cursor-default' : ''}`}
+      onMouseEnter={() => useGlitch && startScramble()}
     >
       {displayText}
     </span>

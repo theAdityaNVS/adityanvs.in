@@ -6,7 +6,7 @@ export const RESUME_DATA = {
   bio: "Results-driven Java Full Stack Developer with 4+ years of hands-on experience at JP Morgan & TCS. Specializing in building scalable enterprise applications using Spring Boot, React, and microservices architecture. Multi-cloud certified (AWS, GCP, Azure) with a track record of optimizing system performance by up to 45% and enhancing data reliability.",
   location: "Hyderabad, Telangana, India",
   email: "**********@mail.com", // Hidden for privacy
-  availability: "Available",
+  availability: "Open to Opportunities",
 };
 
 export const SERVICES: Service[] = [

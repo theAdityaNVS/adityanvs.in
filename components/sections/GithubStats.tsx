@@ -10,7 +10,7 @@ const GithubStats: React.FC = () => {
   // Use local proxy that will try your self-hosted endpoint, then the public service, then local fallbacks
   const statsUrl = `/api/github-stats?username=${username}&kind=stats`;
 
-  const streakUrl = `https://github-readme-streak-stats.herokuapp.com?user=${username}&theme=transparent&hide_border=true&exclude_days=Sun%2CSat`;
+  const streakUrl = `https://github-readme-streak--stats.vercel.app?user=${username}&theme=transparent&hide_border=true&exclude_days=Sun%2CSat`;
 
   const langUrl = `/api/github-stats?username=${username}&kind=langs`
 
@@ -20,7 +20,7 @@ const GithubStats: React.FC = () => {
     const attempts = parseInt(img.dataset.attempts || '0', 10);
     if (attempts === 0) {
       img.dataset.attempts = '1';
-      img.src = `https://github--stats.vercel.app/api?username=${username}&theme=default&show_icons=true&hide_border=true&count_private=true`;
+      img.src = `https://github--stats.vercel.app/api?username=${username}&theme=transparent&show_icons=true&hide_border=true&count_private=true`;
     } else {
       img.dataset.attempts = '2';
       img.src = '/github-stats-fallback.svg';
@@ -32,7 +32,7 @@ const GithubStats: React.FC = () => {
     const attempts = parseInt(img.dataset.attempts || '0', 10);
     if (attempts === 0) {
       img.dataset.attempts = '1';
-      img.src = `https://github--stats.vercel.app/api/top-langs/?username=${username}&theme=default&layout=compact&hide_border=true`;
+      img.src = `https://github--stats.vercel.app/api/top-langs/?username=${username}&theme=transparent&layout=compact&hide_border=true`;
     } else {
       img.dataset.attempts = '2';
       img.src = '/github-langs-fallback.svg';

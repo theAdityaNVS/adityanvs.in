@@ -58,7 +58,7 @@ const Hero: React.FC = () => {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
               </span>
-              <span className="text-slate-200 font-medium text-xs tracking-wider uppercase">Open to Opportunities</span>
+              <span className="text-slate-200 font-medium text-xs tracking-wider uppercase">Online</span>
             </div>
 
             <h1 className="text-5xl md:text-7xl font-display font-bold text-white mb-6 leading-[1.1] animate-[fadeIn_1.2s_ease-out] tracking-tight">

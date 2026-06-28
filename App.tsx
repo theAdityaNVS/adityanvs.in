@@ -4,6 +4,7 @@ import Hero from './components/sections/Hero';
 import AIAssistant from './components/AIAssistant';
 import ScrollReveal from './components/ui/ScrollReveal';
 import { Loader2 } from 'lucide-react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 // Lazy load heavy sections for performance optimization
 const Skills = React.lazy(() => import('./components/sections/Skills'));
@@ -64,6 +65,9 @@ const App: React.FC = () => {
 
       {/* Floating AI Chatbot - placed outside main to sit on top of everything */}
       <AIAssistant />
+      
+      {/* Vercel Speed Insights */}
+      <SpeedInsights />
     </div>
   );
 };
